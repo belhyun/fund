@@ -7,12 +7,14 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         compress: true,
-        publicPath: '/',
+        publicPath: '/src/main/resources/static/',
         host: "0.0.0.0",
-        port: 3000,
-        proxy: {
-            "**": "http://localhost:8080"
-        }
+        hot: true,
+        inline: true,
+        port: 3001
+        // proxy: {
+        //     "**": "http://localhost:8060"
+        // }
     },
     entry: './src/main/resources/static/index.js',
     output: {
@@ -60,16 +62,29 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                loader: 'svg-inline-loader?classPrefix'
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]?[hash]',
+                            publicPath: './bundle/'
+                        }
+                    }
+                ]
             }
         ]
     },
     plugins: [
         new webpack.NamedModulesPlugin(), //prints more readable module names in the browser console on HMR updates
-        // new HtmlWebpackPlugin({
-            // template: path.resolve(__dirname, 'src', 'main', 'resources', 'templates'),
-            // filename: 'index.html',
-            // inject: 'body'
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('development')
+            }
+        }),
+        new webpack.HotModuleReplacementPlugin()//,
+        //  new HtmlWebpackPlugin({
+        //      filename: __dirname + "/src/main/resources/static/index.html",
+        //      inject: "body"
         // })
     ]
 }
