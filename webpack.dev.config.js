@@ -81,10 +81,20 @@ module.exports = {
                 NODE_ENV: JSON.stringify('development')
             }
         }),
-        new webpack.HotModuleReplacementPlugin()//,
+        new webpack.HotModuleReplacementPlugin()
+        //,
         //  new HtmlWebpackPlugin({
         //      filename: __dirname + "/src/main/resources/static/index.html",
         //      inject: "body"
         // })
-    ]
+    ],
+    cache: true//,
+    // optimization: {
+    //     removeAvailableModules: false,
+    //     removeEmptyChunks: false,
+    //     splitChunks: false
+    // },
+    // output: {
+    //     pathinfo: false
+    // }
 }

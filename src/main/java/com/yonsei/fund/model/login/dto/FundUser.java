@@ -14,8 +14,11 @@ public class FundUser implements Serializable {
     @Setter
     private String accessToken;
 
+    @Setter
+    private String id;
 
     @Getter
     @Setter
-    private String id;
+    private String code;
+
 }

@@ -5,9 +5,10 @@ import com.yonsei.fund.model.login.dto.FundUser;
 
 import java.util.Optional;
 
-//@Repository
-public interface FundLoginRepository/* extends CrudRepository<FundUser, String>*/ {
+public interface FundLoginRepository {
 
-    Optional<FundUser> findByAccessToken(String accessToken);
+    Optional<FundUser> findByCode(String code);
+
+    Optional<FundUser> save(FundUser fundUser);
 
 }
