@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     devtool: 'inline-source-map',
@@ -76,24 +77,21 @@ module.exports = {
     },
     plugins: [
         new webpack.NamedModulesPlugin(), //prints more readable module names in the browser console on HMR updates
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('development')
-            }
-        }),
-        new webpack.HotModuleReplacementPlugin()
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //         NODE_ENV: JSON.stringify('development')
+        //     }
+        // }),
+        new webpack.HotModuleReplacementPlugin()//
+        // 실제 배포시만 사용
+        //new UglifyJsPlugin()
         //,
         //  new HtmlWebpackPlugin({
         //      filename: __dirname + "/src/main/resources/static/index.html",
         //      inject: "body"
         // })
     ],
-    cache: true//,
-    // optimization: {
-    //     removeAvailableModules: false,
-    //     removeEmptyChunks: false,
-    //     splitChunks: false
-    // },
+    cache: true
     // output: {
     //     pathinfo: false
     // }
