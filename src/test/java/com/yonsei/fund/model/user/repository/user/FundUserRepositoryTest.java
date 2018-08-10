@@ -1,6 +1,8 @@
 package com.yonsei.fund.model.user.repository.user;
 
+import com.querydsl.core.BooleanBuilder;
 import com.yonsei.fund.model.user.dto.FundUser;
+import com.yonsei.fund.model.user.dto.QFundUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,6 @@ public class FundUserRepositoryTest {
 
     @Test
     public void test() {
-        FundUser fundUser = FundUser.builder()
-                .accessToken("한글")
-                .code("한글").build();
-        fundUserRepository.save(fundUser);
+        fundUserRepository.testFind();
     }
 }

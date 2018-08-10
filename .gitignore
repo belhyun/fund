@@ -28,3 +28,4 @@
 /build
 redis.conf
 data
+src/main/java/generated
