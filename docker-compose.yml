@@ -7,3 +7,18 @@ services:
       - ./redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: fund
+      MYSQL_DATABASE: fund
+      MYSQL_USER: fund
+      MYSQL_PASSWORD: fund
+    volumes:
+      - ./data/db:/var/lib/mysql
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+
