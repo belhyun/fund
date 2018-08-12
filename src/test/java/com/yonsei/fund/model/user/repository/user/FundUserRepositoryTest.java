@@ -21,6 +21,6 @@ public class FundUserRepositoryTest {
 
     @Test
     public void test() {
-        fundUserRepository.testFind();
+//        fundUserRepository.testFind();
     }
 }

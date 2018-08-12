@@ -6,20 +6,25 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     devtool: 'inline-source-map',
     devServer: {
+        // Ïñ¥Îñ§ ÏöîÏ≤≠Ïù¥ Îì§Ïñ¥ÏôÄÎèÑ index.htmlÏù¥ Î≥¥Ïó¨ÏßÄÎèÑÎ°ù
         historyApiFallback: true,
-        compress: true,
-        publicPath: '/src/main/resources/static/',
+        // compress: true,
+        publicPath: '/',
+        contentBase: [
+            path.resolve(__dirname, 'interfaces', 'bundle'),
+            path.resolve(__dirname, 'node_modules')
+        ],
         host: "0.0.0.0",
         hot: true,
         inline: true,
-        port: 3001
+        port: 3000
         // proxy: {
         //     "**": "http://localhost:8060"
         // }
     },
-    entry: './src/main/resources/static/index.js',
+    entry: './interfaces/index.js',
     output: {
-        path: path.resolve(__dirname, 'src', 'main', 'resources', 'static', 'bundle'),
+        path: path.resolve(__dirname, 'interfaces', 'bundle'),
         filename: 'bundle.js'
     },
     module: {
@@ -42,10 +47,7 @@ module.exports = {
                 exclude: '/node_modules/',
                 use: [
                     {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['es2015', 'react'],
-                        },
+                        loader: 'babel-loader'
                     },
                 ],
             },
@@ -54,10 +56,7 @@ module.exports = {
                 exclude: '/node_modules/',
                 use: [
                     {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['es2015', 'react'],
-                        },
+                        loader: 'babel-loader'
                     },
                 ]
             },
@@ -82,13 +81,13 @@ module.exports = {
         //         NODE_ENV: JSON.stringify('development')
         //     }
         // }),
-        new webpack.HotModuleReplacementPlugin()//
-        // Ω«¡¶ πË∆˜Ω√∏∏ ªÁøÎ
+        new webpack.HotModuleReplacementPlugin()//,
         //new UglifyJsPlugin()
         //,
-        //  new HtmlWebpackPlugin({
-        //      filename: __dirname + "/src/main/resources/static/index.html",
-        //      inject: "body"
+        // new HtmlWebpackPlugin({
+        //     template: "./interfaces/index.html",
+        //     filename: "./interfaces/bundle/index.html",
+        //     inject: false
         // })
     ],
     cache: true
