@@ -11,13 +11,14 @@ module.exports = {
         // compress: true,
         publicPath: '/',
         contentBase: [
+            // path.resolve(__dirname, 'interfaces'),
             path.resolve(__dirname, 'interfaces', 'bundle'),
             path.resolve(__dirname, 'node_modules')
         ],
-        host: "0.0.0.0",
+        host: "local.yonsei.ac.kr",
         hot: true,
         inline: true,
-        port: 3000
+        port: 4000
         // proxy: {
         //     "**": "http://localhost:8060"
         // }

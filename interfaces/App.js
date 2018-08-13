@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './login/Login';
+import Home from './home/Home';
 import { Container, Row, Col } from 'reactstrap';
 import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -16,7 +17,10 @@ class App extends React.Component {
     render() {
         return (
                 <Router history={history}>
-                    <Route exact path="/" component={Login}/>
+                    <div>
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/login" component={Login}/>
+                    </div>
                 </Router>
         );
     }
