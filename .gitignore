@@ -30,3 +30,4 @@ redis.conf
 data
 src/main/java/generated
 package-lock.json
+interfaces/bundle
