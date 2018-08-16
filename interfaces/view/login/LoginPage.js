@@ -1,32 +1,43 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import './Login.css';
+import './LoginPage.css';
 import _ from 'underscore';
+import { connect } from 'react-redux';
+import loginActions from '../../actions/login/loginActions';
 
 let log = console.log;
 let APP_TOKEN = "d27500168bca69553a48c6c05858c6e6";
 
-export default class Login extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            accessToken: "",
+            refreshToken: "",
+            tokenType: "",
+            submitted: false
+        };
+        this.loginWithKakao = this.loginWithKakao.bind(this);
     }
     componentDidMount() {
         Kakao.init(APP_TOKEN);
-        // Kakao.Auth.createLoginButton({
-        //     container: '#kakao-login-btn',
-        //     success: function(authObj) {
-        //         alert(JSON.stringify(authObj));
-        //     },
-        //     fail: function(err) {
-        //         alert(JSON.stringify(err));
-        //     }
-        // });
     }
     loginWithKakao() {
+        let success = function(authObj) {
+            let resp = JSON.stringify(authObj);
+            this.setState({
+                accessToken: resp.access_token,
+                refreshToken: resp.refresh_token,
+                tokenType: resp.token_type,
+                submitted: true
+            });
+            const { dispatch } = this.props;
+
+            dispatch(loginActions.login(this.state));
+        }.bind(this);
         Kakao.Auth.login({
-            success: function(authObj) {
-                alert(JSON.stringify(authObj));
-            },
+            success: success,
             fail: function(err) {
                 alert(JSON.stringify(err));
             }
@@ -82,3 +93,15 @@ export default class Login extends React.Component {
         );
     }
 }
+
+
+function mapStateToProps(state) {
+    const { loggingIn } = state.authentication;
+    return {
+        loggingIn
+    };
+}
+
+const connectedLoginPage = connect(mapStateToProps)(LoginPage);
+
+export default connectedLoginPage;

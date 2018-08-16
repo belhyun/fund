@@ -13,9 +13,11 @@ import MusaPanelTable1 from './css/MUSA_panel-table-1.css';
 import NewsCard from './css/News-Cards.css';
 import PrettyFooter from './css/Pretty-Footer.css';
 import Styles from './css/styles.css';
-import NavBar from './navbar/NavBar';
+import NavBarPage from './navbar/NavBarPage';
+import FundCardPage from './fundcard/FundCardPage';
+import FooterPage from './footer/FooterPage';
 
-export default class Home extends React.Component {
+export default class HomePage extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -23,8 +25,11 @@ export default class Home extends React.Component {
     render() {
         return (
                 <div>
-                    <NavBar/>
+                    <NavBarPage/>
+                    <FundCardPage></FundCardPage>
+                    <FooterPage></FooterPage>
                 </div>
         );
     }
 }
+

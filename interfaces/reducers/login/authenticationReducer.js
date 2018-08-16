@@ -1,5 +1,5 @@
 
-import { userConstants } from '../constants/userConstants';
+import { loginConstants } from '../../constants/loginConstants';
 
 let user = JSON.parse(localStorage.getItem('user'));
 
