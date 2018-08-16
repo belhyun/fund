@@ -4,9 +4,10 @@ import './LoginPage.css';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import loginActions from '../../actions/login/loginActions';
+import appConstants from '../../constants/appConstants';
 
 let log = console.log;
-let APP_TOKEN = "d27500168bca69553a48c6c05858c6e6";
+let APP_TOKEN = appConstants.APP_TOKEN;
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -25,16 +26,15 @@ class LoginPage extends React.Component {
     }
     loginWithKakao() {
         let success = function(authObj) {
-            let resp = JSON.stringify(authObj);
+            let pickAuthObj = _.partial(_.pick, authObj, _);
             this.setState({
-                accessToken: resp.access_token,
-                refreshToken: resp.refresh_token,
-                tokenType: resp.token_type,
+                accessToken: pickAuthObj('access_token'),
+                refreshToken: pickAuthObj('refresh_token'),
+                tokenType: pickAuthObj('token_type'),
                 submitted: true
             });
             const { dispatch } = this.props;
-
-            dispatch(loginActions.login(this.state));
+            loginActions.login(this.state).call(null, dispatch);
         }.bind(this);
         Kakao.Auth.login({
             success: success,
@@ -94,14 +94,11 @@ class LoginPage extends React.Component {
     }
 }
 
-
 function mapStateToProps(state) {
     const { loggingIn } = state.authentication;
     return {
         loggingIn
     };
 }
-
 const connectedLoginPage = connect(mapStateToProps)(LoginPage);
-
 export default connectedLoginPage;
