@@ -13,17 +13,17 @@ export default class FooterPage extends React.Component {
                         <div className="col-sm-6 col-md-4 footer-navigation">
                             <h3><a href="#">Company<span>logo </span></a></h3>
                             <p className="links"><a href="#">Home</a><strong> · </strong><a href="#">Blog</a><strong> · </strong><a href="#">Pricing</a><strong> · </strong><a href="#">About</a><strong> · </strong><a href="#">Faq</a><strong> · </strong><a href="#">Contact</a></p>
-                            <p className="company-name">Company Name © 2015 </p>
+                            <p className="company-name">BellaB © 2018 </p>
                         </div>
                         <div className="col-sm-6 col-md-4 footer-contacts">
                             <div><span className="fa fa-map-marker footer-contacts-icon"> </span>
-                                <p><span className="new-line-span">21 Revolution Street</span> Paris, France</p>
+                                <p><span className="new-line-span">연세로50 학술정보원 행정정보팀 이종현</span> 한국, 서울</p>
                             </div>
                             <div><i className="fa fa-phone footer-contacts-icon" />
-                                <p className="footer-center-info email text-left"> +1 555 123456</p>
+                                <p className="footer-center-info email text-left"> 02-2123-4938</p>
                             </div>
                             <div><i className="fa fa-envelope footer-contacts-icon" />
-                                <p> <a href="#" target="_blank">support@company.com</a></p>
+                                <p> <a href="#" target="_blank">belhyun@yonsei.ac.kr</a></p>
                             </div>
                         </div>
                         <div className="clearfix" />

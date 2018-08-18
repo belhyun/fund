@@ -1,4 +1,10 @@
 package com.yonsei.fund.service.login;
 
-public class FundLoginService {
+import com.yonsei.fund.model.user.dto.FundUser;
+import org.springframework.stereotype.Service;
+
+@Service
+public interface FundLoginService {
+
+    FundUser login(FundUser fundUser);
 }

@@ -1,19 +1,32 @@
 package com.yonsei.fund.model.user.dto;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import com.yonsei.fund.model.user.dto.base.FundAbstractTimestampEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-//@RedisHash("FundUser")
+import javax.persistence.*;
+
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="fund_user")
-public class FundUser implements Serializable {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class FundUser extends FundAbstractTimestampEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accessToken;
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "fundUser")
+    private FundUserAuth fundUserAuth;
 
-    private String code;
+
 
 }

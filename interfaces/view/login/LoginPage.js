@@ -7,7 +7,7 @@ import loginActions from '../../actions/login/loginActions';
 import appConstants from '../../constants/appConstants';
 
 let log = console.log;
-let APP_TOKEN = appConstants.APP_TOKEN;
+let APP_TOKEN = appConstants.KAKAO_APP_TOKEN;
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -26,11 +26,15 @@ class LoginPage extends React.Component {
     }
     loginWithKakao() {
         let success = function(authObj) {
-            let pickAuthObj = _.partial(_.pick, authObj, _);
+            let pickAuthObj = _.compose(_.head, _.values, _.partial(_.pick, authObj, _));
             this.setState({
                 accessToken: pickAuthObj('access_token'),
                 refreshToken: pickAuthObj('refresh_token'),
                 tokenType: pickAuthObj('token_type'),
+                expiresIn: pickAuthObj('expires_in'),
+                refreshTokenExpiresIn: pickAuthObj("refresh_token_expires_in"),
+                scope: pickAuthObj("scope"),
+                stateToken: pickAuthObj("stateToken"),
                 submitted: true
             });
             const { dispatch } = this.props;

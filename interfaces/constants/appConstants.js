@@ -1,5 +1,9 @@
 const appConstants = {
-    APP_TOKEN : "d27500168bca69553a48c6c05858c6e6"
+    KAKAO_APP_TOKEN : "d27500168bca69553a48c6c05858c6e6",
+    API_SERVER : {
+        dev: "http://api.yonsei.ac.kr:8060",
+        prod: "api.yonsei.ac.kr:8060"
+    }
 };
 
 export default appConstants;

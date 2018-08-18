@@ -77,12 +77,15 @@ module.exports = {
     },
     plugins: [
         new webpack.NamedModulesPlugin(), //prints more readable module names in the browser console on HMR updates
-        // new webpack.DefinePlugin({
-        //     'process.env': {
-        //         NODE_ENV: JSON.stringify('development')
-        //     }
-        // }),
-        new webpack.HotModuleReplacementPlugin()//,
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('dev')
+            }
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.ProvidePlugin({
+            _: 'underscore'
+        })//,
         //new UglifyJsPlugin()
         //,
         // new HtmlWebpackPlugin({
