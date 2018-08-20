@@ -1,6 +1,10 @@
 package com.yonsei.fund.model.user.repository.user;
 
+import com.querydsl.jpa.JPQLQuery;
+import com.yonsei.fund.controller.login.condition.FundLoginCondition;
 import com.yonsei.fund.model.user.dto.FundUser;
+import com.yonsei.fund.model.user.dto.QFundUser;
+import com.yonsei.fund.model.user.dto.QFundUserAuth;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +15,25 @@ public class FundUserRepositoryImpl extends QuerydslRepositorySupport implements
         super(FundUser.class);
     }
 
+    private final QFundUser qFundUser = QFundUser.fundUser;
+
+    private final QFundUserAuth qFundUserAuth = QFundUserAuth.fundUserAuth;
+
+    @Override
+    public FundUser findByAccessToken(FundLoginCondition condition) {
+
+        JPQLQuery<FundUser> query = from(qFundUser).innerJoin(qFundUser.fundUserAuth, qFundUserAuth)
+                .where(qFundUserAuth.accessToken.eq(condition.getAccessToken()));
+
+        return query.fetchOne();
+    }
+
 //    @Override
 //    public void testFind() {
 //        JPQLQuery<FundUser> where = from(QFundUser.fundUser).where(QFundUser.fundUser.accessToken.eq("한글"));
 //        where.fetch();
 //    }
+
+
 
 }

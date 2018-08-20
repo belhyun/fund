@@ -1,4 +1,4 @@
-package com.yonsei.fund.util;
+package com.yonsei.fund.util.redis;
 
 public class FundRedisInterface {
 }

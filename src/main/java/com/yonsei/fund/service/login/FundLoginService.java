@@ -1,10 +1,10 @@
 package com.yonsei.fund.service.login;
 
+import com.yonsei.fund.controller.login.condition.FundLoginCondition;
 import com.yonsei.fund.model.user.dto.FundUser;
-import org.springframework.stereotype.Service;
+import com.yonsei.fund.util.rest.FundRestResponse;
 
-@Service
 public interface FundLoginService {
 
-    FundUser login(FundUser fundUser);
+    FundRestResponse<FundUser> login(FundLoginCondition condition);
 }

@@ -56,4 +56,8 @@ public class FundUserAuth extends FundAbstractTimestampEntity {
         this.lastLoginAt = LocalDateTime.now();
     }
 
+    public boolean isExpired() {
+        return lastLoginAt.plusSeconds(expiresIn).compareTo(LocalDateTime.now()) < 0;
+    }
+
 }
