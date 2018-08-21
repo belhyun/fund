@@ -18,13 +18,20 @@ function login() {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin':'*'
         },
-        body: JSON.stringify(authObj)//,
-        // mode: "no-cors"
+        body: JSON.stringify(authObj)
     };
 
     return fetch(
         appConstants.API_SERVER[process.env.NODE_ENV].concat("/login"), requestOptions)
-        .then(handleResponse);
+        .then(handleResponse)
+        .then(fundUser => {
+            log(1);
+            if (!s_.isBlank(fundUser.accessToken)) {
+                //do anything
+            }
+            log(fundUser);
+            return fundUser;
+        });
     // return authObj;
 
 }
