@@ -1,6 +1,7 @@
 package com.yonsei.fund.service.login;
 
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
+import com.yonsei.fund.controller.login.dto.FundLoginDto;
 import com.yonsei.fund.model.user.dto.FundUser;
 import com.yonsei.fund.model.user.repository.user.FundUserRepository;
 import com.yonsei.fund.util.rest.FundRestResponse;
@@ -19,7 +20,7 @@ public class FundLoginServiceImpl implements FundLoginService {
     private FundUserRepository fundUserRepository;
 
     @Override
-    public FundRestResponse<FundUser> login(@NotNull FundLoginCondition condition) {
+    public FundRestResponse<FundLoginDto> login(@NotNull FundLoginCondition condition) {
 
         FundUser fundUser = fundUserRepository.findByAccessToken(condition);
 
@@ -30,7 +31,6 @@ public class FundLoginServiceImpl implements FundLoginService {
                         return getInstance().accTokenExpired();
                     }
                     return getInstance().success(fundUser);
-
                 },
                 () -> getInstance().success(fundUserRepository.save(FundUser.makeFromCondition(condition)))
         );

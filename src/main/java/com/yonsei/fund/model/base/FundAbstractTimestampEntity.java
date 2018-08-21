@@ -1,4 +1,4 @@
-package com.yonsei.fund.model.user.dto.base;
+package com.yonsei.fund.model.base;
 
 import com.yonsei.fund.configuration.datasource.FundEntityChangeableListener;
 

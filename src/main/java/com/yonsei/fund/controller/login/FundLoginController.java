@@ -1,6 +1,7 @@
 package com.yonsei.fund.controller.login;
 
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
+import com.yonsei.fund.controller.login.dto.FundLoginDto;
 import com.yonsei.fund.model.user.dto.FundUser;
 import com.yonsei.fund.service.login.FundLoginService;
 import com.yonsei.fund.util.rest.FundRestResponse;
@@ -20,7 +21,7 @@ public class FundLoginController {
 
     @ResponseBody
     @PostMapping(value = "/login")
-    public FundRestResponse<FundUser> login(@RequestBody FundLoginCondition condition) {
+    public FundRestResponse<FundLoginDto> login(@RequestBody FundLoginCondition condition) {
 
         return fundLoginService.login(condition);
     }

@@ -1,6 +1,6 @@
 package com.yonsei.fund.configuration.datasource;
 
-import com.yonsei.fund.model.user.dto.base.FundAbstractTimestampEntity;
+import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
 import org.hibernate.event.spi.PreInsertEvent;
 import org.hibernate.event.spi.PreInsertEventListener;
 import org.hibernate.event.spi.PreUpdateEvent;

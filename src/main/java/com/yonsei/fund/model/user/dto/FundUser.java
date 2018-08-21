@@ -1,11 +1,9 @@
 package com.yonsei.fund.model.user.dto;
 
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
-import com.yonsei.fund.model.user.dto.base.FundAbstractTimestampEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.yonsei.fund.controller.login.dto.FundLoginDto;
+import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -16,6 +14,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false, of = { "id" })
 @Data
 public class FundUser extends FundAbstractTimestampEntity {
 
@@ -31,7 +30,7 @@ public class FundUser extends FundAbstractTimestampEntity {
 
     public static FundUser makeFromCondition(FundLoginCondition condition) {
         FundUser fundUser = FundUser.builder().build();
-        FundUser.builder().build().setFundUserAuth(FundUserAuth.builder()
+        FundUserAuth fundUserAuth = FundUserAuth.builder()
                 .accessToken(condition.getAccessToken())
                 .expiresIn(condition.getExpiresIn())
                 .refreshToken(condition.getRefreshToken())
@@ -39,7 +38,15 @@ public class FundUser extends FundAbstractTimestampEntity {
                 .scope(condition.getScope())
                 .stateToken(condition.getStateToken())
                 .tokenType(condition.getTokenType())
-                .fundUser(fundUser).build());
+                .build();
+        fundUserAuth.setFundUser(fundUser);
+        fundUser.setFundUserAuth(fundUserAuth);
         return fundUser;
+    }
+
+    public FundLoginDto makeDto() {
+        return FundLoginDto.builder()
+                .accessToken(fundUserAuth.getAccessToken())
+                .expiresIn(fundUserAuth.getExpiresIn()).build();
     }
 }

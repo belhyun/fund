@@ -1,5 +1,6 @@
 package com.yonsei.fund.service.login;
 
+import com.yonsei.fund.controller.login.dto.FundLoginDto;
 import com.yonsei.fund.model.user.dto.FundUser;
 import com.yonsei.fund.util.rest.FundRestResponse;
 import com.yonsei.fund.util.rest.FundRestResponseCode;
@@ -17,21 +18,21 @@ public class FundLoginRestResponseFactory {
 
     }
 
-    public FundRestResponse<FundUser> accTokenExpired() {
+    public FundRestResponse<FundLoginDto> accTokenExpired() {
 
         return FundRestResponse.make(
                 FundLoginConstants.ACC_TOKEN_EXPIRED,
                 FundRestResponseCode.FundRespCode.ACC_TOKEN_EXPIRED,
-                FundUser.builder().build()
+                FundLoginDto.builder().build()
         );
     }
 
-    public FundRestResponse<FundUser> success(FundUser fundUser) {
+    public FundRestResponse<FundLoginDto> success(FundUser fundUser) {
 
         return FundRestResponse.make(
                 FundLoginConstants.LOGIN_SUCCESS,
                 FundRestResponseCode.FundRespCode.LOGIN_SUCCESS,
-                fundUser
+                fundUser.makeDto()
         );
     }
 }
