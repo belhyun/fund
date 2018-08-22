@@ -16,8 +16,23 @@ function login(authObj) {
         dispatch(request({
             authObj
         }));
-        loginServices.login(authObj);
+        loginServices.login(authObj)
+            .then(
+                authObj => {
+                    dispatch(success(authObj));
+                },
+                error => {
+
+                }
+            )
     };
+
+    function success(authObj) {
+        return {
+            type: loginConstants.LOGIN_SUCCESS, authObj: authObj
+        }
+    }
+
 }
 
 export default loginActions;

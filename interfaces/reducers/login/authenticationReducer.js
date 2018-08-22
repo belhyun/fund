@@ -1,12 +1,25 @@
 
-import { loginConstants } from '../../constants/loginConstants';
+import loginConstants from '../../constants/loginConstants';
+import cooker from '../../helpers/cooker';
 
-let user = JSON.parse(localStorage.getItem('user'));
+let user = cooker.getCookie(loginConstants.LOGIN_KEY);
 
-const initialState = user ? { loggedIn: true, user } : {};
+const initialState = _.isNull(user) ? { loggedIn: true, user } : {};
 
 export function authentication(state = initialState, action) {
 
-    return state;
-
+    switch (action.type) {
+        case loginConstants.LOGIN_REQUEST:
+            return {
+                loggingIn: true,
+                authObj: action.authObj
+            };
+        case loginConstants.LOGIN_SUCCESS:
+            return {
+                loggingIn: true,
+                authObj: action.authObj
+            }
+        default:
+            return state;
+    }
 }

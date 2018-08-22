@@ -5,7 +5,7 @@ const loginConstants = {
     LOGIN_REQUEST: 'USERS_LOGIN_REQUEST',
     LOGIN_SUCCESS: 'USERS_LOGIN_SUCCESS',
     LOGIN_FAILURE: 'USERS_LOGIN_FAILURE',
-    COOKIE_KEY: "FUND_ACCESS_TOKEN"
+    LOGIN_KEY: "FUND_ACCESS_TOKEN"
 };
 
 export default loginConstants;

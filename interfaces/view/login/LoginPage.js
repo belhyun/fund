@@ -21,9 +21,13 @@ class LoginPage extends React.Component {
             submitted: false
         };
         this.loginWithKakao = this.loginWithKakao.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
         Kakao.init(APP_TOKEN);
+    }
+    handleChange(e) {
+        log(e.target);
     }
     loginWithKakao() {
         let success = function(authObj) {
@@ -49,6 +53,7 @@ class LoginPage extends React.Component {
         });
     }
     render() {
+        log("render");
         return (
                 <div className="d-flex flex-column justify-content-center" id="login-box">
                     <div className="login-box-header">
@@ -101,6 +106,8 @@ class LoginPage extends React.Component {
 
 function mapStateToProps(state) {
     const { loggingIn } = state.authentication;
+    log("mapStateToProps");
+    console.log(state.authentication);
     return {
         loggingIn
     };
