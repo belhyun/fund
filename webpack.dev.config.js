@@ -85,7 +85,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({
             _: 'underscore',
-            s_: 'underscore.string'
+            _s: 'underscore.string'
         })//,
         //new UglifyJsPlugin()
         //,

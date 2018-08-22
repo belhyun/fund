@@ -1,5 +1,8 @@
 import util from "../helpers/util";
 import appConstants from "../constants/appConstants";
+import loginConstants from "../constants/loginConstants";
+import functional from '../helpers/functional';
+import cooker from '../helpers/cooker';
 
 const loginService = {
     login
@@ -24,22 +27,24 @@ function login() {
     return fetch(
         appConstants.API_SERVER[process.env.NODE_ENV].concat("/login"), requestOptions)
         .then(handleResponse)
-        .then(fundUser => {
-            log(1);
-            if (!s_.isBlank(fundUser.accessToken)) {
-                //do anything
+        .then(resp => {
+            let accToken = resp.body['accessToken'];
+            if (_.negate(_s.isBlank)(accToken)) {
+                _.compose(function(go){
+                    if (go) {
+                        cooker.setCookie(loginConstants.COOKIE_KEY, resp.body, resp.body['expiresIn']);
+                    }
+                    return go;
+                }, _.isNull, cooker.getCookie)(loginConstants.COOKIE_KEY)
             }
-            log(fundUser);
-            return fundUser;
+            return accToken;
         });
     // return authObj;
 
 }
 
 function handleResponse(resp) {
-
-    return resp;
-
+    return resp.json();
 }
 
 export default loginService;

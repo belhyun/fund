@@ -22,4 +22,5 @@ const objectToQueryString = function() {
     return host.concat(results.join('&'));
 };
 
+
 export default util;

@@ -5,6 +5,7 @@ import _ from 'underscore';
 import { connect } from 'react-redux';
 import loginActions from '../../actions/login/loginActions';
 import appConstants from '../../constants/appConstants';
+import cooker from '../../helpers/cooker';
 
 let log = console.log;
 let APP_TOKEN = appConstants.KAKAO_APP_TOKEN;
