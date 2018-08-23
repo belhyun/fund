@@ -10,4 +10,8 @@ public class FundLoginDto {
     private String accessToken;
 
     private Long expiresIn;
+
+    private String refreshToken;
+
+    private Long refreshTokenExpiresIn;
 }

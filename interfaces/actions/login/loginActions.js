@@ -1,8 +1,27 @@
 import loginConstants from '../../constants/loginConstants';
 import loginServices from '../../services/loginService';
+import cooker from "../../helpers/cooker";
 const loginActions = {
-    login
+    login,
+    preLogin
 };
+
+function preLogin(authObj) {
+    let res = loginServices.preLogin();
+    if (res.loggingIn) {
+        let authObj = res['authObj'];
+        return dispatch => {
+            dispatch({
+                type: loginConstants.LOGIN_SUCCESS, authObj
+            });
+        }
+    }
+    return dispatch => {
+        dispatch({
+            type: loginConstants.LOGIN_NEEDED, authObj
+        })
+    }
+}
 
 function login(authObj) {
 

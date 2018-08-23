@@ -4,8 +4,12 @@ const loginConstants = {
     REGISTER_FAILURE: 'USERS_REGISTER_FAILURE',
     LOGIN_REQUEST: 'USERS_LOGIN_REQUEST',
     LOGIN_SUCCESS: 'USERS_LOGIN_SUCCESS',
+    LOGIN_NEEDED: 'USERS_LOGIN_NEEDED',
     LOGIN_FAILURE: 'USERS_LOGIN_FAILURE',
-    LOGIN_KEY: "FUND_ACCESS_TOKEN"
+    LOGIN_KEY: "FUND_ACCESS_TOKEN",
+    EMPTY_AUTH_OBJ: {
+        loggingIn: false, authObj:{}
+    }
 };
 
 export default loginConstants;

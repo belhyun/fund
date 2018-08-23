@@ -1,11 +1,12 @@
 import util from "../helpers/util";
 import appConstants from "../constants/appConstants";
 import loginConstants from "../constants/loginConstants";
-import functional from '../helpers/functional';
-import cooker from '../helpers/cooker';
+import { history } from '../helpers/history';
+
 
 const loginService = {
-    login
+    login,
+    preLogin
 };
 
 let log = console.log;
@@ -30,12 +31,11 @@ function login() {
         .then(resp => {
             let authObj = resp['body'];
             if (_.negate(_s.isBlank)(authObj['accessToken'])) {
-                _.compose(function(go){
-                    if (go) {
-                        cooker.setCookie(loginConstants.LOGIN_KEY, authObj, authObj['expiresIn']);
-                    }
-                    return go;
-                }, _.isNull, cooker.getCookie)(loginConstants.LOGIN_KEY)
+                log(localStorage.getItem(loginConstants.LOGIN_KEY));
+                if (_.isNull(localStorage.getItem(loginConstants.LOGIN_KEY))) {
+                    localStorage.setItem(loginConstants.LOGIN_KEY, JSON.stringify(authObj));
+                    history.push("/");
+                }
             }
             return authObj;
         });
@@ -59,6 +59,25 @@ function handleResponse(response) {
         }
     });
 
+}
+
+function preLogin() {
+    let authObj = _.isNull(localStorage.getItem(loginConstants.LOGIN_KEY)) ?
+            loginConstants.EMPTY_AUTH_OBJ : {
+                loggingIn: true,
+                authObj: JSON.parse(localStorage.getItem(loginConstants.LOGIN_KEY))
+            };
+    //토큰 만료시 로그인 처리 필요
+    // if (authObj.loggingIn) {
+    //     let expiredIn = moment().add(authObj['expiresIn'], "seconds");
+    // }
+    if (authObj.loggingIn) {
+        history.push("/");
+    }
+    return {
+        loggingIn: authObj.loggingIn,
+        authObj: authObj.authObj
+    }
 }
 
 export default loginService;

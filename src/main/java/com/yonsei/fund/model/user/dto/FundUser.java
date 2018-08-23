@@ -47,6 +47,8 @@ public class FundUser extends FundAbstractTimestampEntity {
     public FundLoginDto makeDto() {
         return FundLoginDto.builder()
                 .accessToken(fundUserAuth.getAccessToken())
-                .expiresIn(fundUserAuth.getExpiresIn()).build();
+                .expiresIn(fundUserAuth.getExpiresIn())
+                .refreshToken(fundUserAuth.getRefreshToken())
+                .refreshTokenExpiresIn(fundUserAuth.getRefreshTokenExpiresIn()).build();
     }
 }

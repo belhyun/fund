@@ -44,9 +44,7 @@
     "webpack-dev-server": "^3.1.5",
     "webpack-merge": "^4.1.4",
     "jquery": "^3.3.1",
-    "moment": "^2.22.2",
-    "remove-strict-webpack-plugin": "^0.1.2",
-    "babel-plugin-transform-remove-strict-mode": "^0.0.2"
+    "moment": "^2.22.2"
   },
   "devDependencies": {
     "webpack": "^4.16.4",

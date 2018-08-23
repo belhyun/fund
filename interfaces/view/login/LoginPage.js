@@ -14,12 +14,15 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
+        //const { dispatch } = this.props;
+
         this.state = {
             accessToken: "",
             refreshToken: "",
             tokenType: "",
             submitted: false
         };
+        loginActions.preLogin(this.state)(this.props.dispatch);
         this.loginWithKakao = this.loginWithKakao.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -27,7 +30,6 @@ class LoginPage extends React.Component {
         Kakao.init(APP_TOKEN);
     }
     handleChange(e) {
-        log(e.target);
     }
     loginWithKakao() {
         let success = function(authObj) {
@@ -42,8 +44,7 @@ class LoginPage extends React.Component {
                 stateToken: pickAuthObj("stateToken"),
                 submitted: true
             });
-            const { dispatch } = this.props;
-            loginActions.login(this.state).call(null, dispatch);
+            loginActions.login(this.state).call(null, this.props.dispatch);
         }.bind(this);
         Kakao.Auth.login({
             success: success,
@@ -53,7 +54,6 @@ class LoginPage extends React.Component {
         });
     }
     render() {
-        log("render");
         return (
                 <div className="d-flex flex-column justify-content-center" id="login-box">
                     <div className="login-box-header">
@@ -106,8 +106,6 @@ class LoginPage extends React.Component {
 
 function mapStateToProps(state) {
     const { loggingIn } = state.authentication;
-    log("mapStateToProps");
-    console.log(state.authentication);
     return {
         loggingIn
     };

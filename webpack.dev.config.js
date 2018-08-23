@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const RemoveStrictPlugin = require( 'remove-strict-webpack-plugin' );
 
 module.exports = {
     devtool: 'inline-source-map',
@@ -87,8 +86,8 @@ module.exports = {
         new webpack.ProvidePlugin({
             _: 'underscore',
             _s: 'underscore.string'
-        }),
-        new RemoveStrictPlugin()
+        })//,
+        //new RemoveStrictPlugin()
         //,
         //new UglifyJsPlugin()
         //,
