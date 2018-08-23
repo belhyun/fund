@@ -25,6 +25,11 @@ export function authentication(state = initialState, action) {
                 loggingIn: true,
                 authObj: action.authObj
             }
+        case loginConstants.LOGOUT_SUCCESS:
+            return {
+                loggingIn: false,
+                authObj: action.authObj
+            }
         default:
             return state;
     }

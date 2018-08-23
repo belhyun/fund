@@ -27,7 +27,6 @@ class LoginPage extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
-        Kakao.init(APP_TOKEN);
     }
     handleChange(e) {
     }
@@ -105,10 +104,7 @@ class LoginPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
-    return {
-        loggingIn
-    };
+    return state.authentication;
 }
 const connectedLoginPage = connect(mapStateToProps)(LoginPage);
 export default connectedLoginPage;

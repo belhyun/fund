@@ -3,6 +3,7 @@ import loginServices from '../../services/loginService';
 import cooker from "../../helpers/cooker";
 const loginActions = {
     login,
+    logout,
     preLogin
 };
 
@@ -19,6 +20,15 @@ function preLogin(authObj) {
     return dispatch => {
         dispatch({
             type: loginConstants.LOGIN_NEEDED, authObj
+        })
+    }
+}
+
+function logout() {
+    loginServices.logout();
+    return dispatch => {
+        dispatch({
+            type: loginConstants.LOGOUT_SUCCESS
         })
     }
 }

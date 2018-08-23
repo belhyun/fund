@@ -1,12 +1,12 @@
 .snip1527 {
   box-shadow:0 0 5px rgba(0, 0, 0, 0.15);
   color:#ffffff;
-  float:left;
+  //float:left;
   font-family:'Lato', Arial, sans-serif;
   font-size:16px;
-  margin:10px 1%;
-  max-width:290px;
-  min-width:250px;
+  //margin:10px 1%;
+  max-width:220px;
+  min-width:220px;
   overflow:hidden;
   position:relative;
   text-align:left;
@@ -27,7 +27,7 @@
 }
 
 .snip1527 figcaption {
-  padding:25px 20px 25px;
+  padding:15px 10px 15px;
   position:absolute;
   bottom:0;
   z-index:1;
@@ -39,11 +39,11 @@
   bottom:0;
   left:0;
   right:0;
-  background:#700877;
+  background:#171c4d;
   content:'';
-  background:-moz-linear-gradient(90deg, #700877 0%, #ff2759 100%, #ff2759 100%);
-  background:-webkit-linear-gradient(90deg, #700877 0%, #ff2759 100%, #ff2759 100%);
-  background:linear-gradient(90deg, #700877 0%, #ff2759 100%, #ff2759 100%);
+  //background:-moz-linear-gradient(90deg, #700877 0%, #ff2759 100%, #ff2759 100%);
+  //background:-webkit-linear-gradient(90deg, #700877 0%, #ff2759 100%, #ff2759 100%);
+  //background:linear-gradient(90deg, #700877 0%, #ff2759 100%, #ff2759 100%);
   opacity:0.8;
   z-index:-1;
 }
@@ -51,7 +51,7 @@
 .snip1527 .date {
   background-color:#fff;
   border-radius:50%;
-  color:#700877;
+  color:#171c4d;
   font-size:18px;
   font-weight:700;
   min-height:48px;
@@ -111,5 +111,16 @@ img {
 
 img {
   border-radius:5px;
+}
+
+.fund-list {
+  list-style:none;
+  overflow: hidden;
+  padding-left:0px;
+}
+
+.fund-list li {
+  float: left;
+  margin:10px 1%;
 }
 

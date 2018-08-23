@@ -11,7 +11,7 @@ export default class FooterPage extends React.Component {
                 <footer>
                     <div className="row">
                         <div className="col-sm-6 col-md-4 footer-navigation">
-                            <h3><a href="#">Company<span>logo </span></a></h3>
+                            <h3><a href="#">BellaB<span></span></a></h3>
                             <p className="links"><a href="#">Home</a><strong> · </strong><a href="#">Blog</a><strong> · </strong><a href="#">Pricing</a><strong> · </strong><a href="#">About</a><strong> · </strong><a href="#">Faq</a><strong> · </strong><a href="#">Contact</a></p>
                             <p className="company-name">BellaB © 2018 </p>
                         </div>
@@ -28,9 +28,9 @@ export default class FooterPage extends React.Component {
                         </div>
                         <div className="clearfix" />
                         <div className="col-md-4 footer-about">
-                            <h4>About the company</h4>
-                            <p> Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet. </p>
-                            <div className="social-links social-icons"><a href="#"><i className="fa fa-facebook" /></a><a href="#"><i className="fa fa-twitter" /></a><a href="#"><i className="fa fa-linkedin" /></a><a href="#"><i className="fa fa-github" /></a></div>
+                            <h4>BellaB이란</h4>
+                            <p> 1인 프리랜서 웹개발자입니다. </p>
+                            {/*<div className="social-links social-icons"><a href="#"><i className="fa fa-facebook" /></a><a href="#"><i className="fa fa-twitter" /></a><a href="#"><i className="fa fa-linkedin" /></a><a href="#"><i className="fa fa-github" /></a></div>*/}
                         </div>
                     </div>
                 </footer>

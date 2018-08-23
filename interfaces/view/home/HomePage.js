@@ -16,10 +16,19 @@ import Styles from './css/styles.css';
 import NavBarPage from './navbar/NavBarPage';
 import FundCardPage from './fundcard/FundCardPage';
 import FooterPage from './footer/FooterPage';
-
-export default class HomePage extends React.Component {
+import connect from "react-redux/es/connect/connect";
+import loginActions from '../../actions/login/loginActions';
+let log = console.log;
+class HomePage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            accessToken: "",
+            refreshToken: "",
+            tokenType: "",
+            submitted: false
+        };
+        loginActions.preLogin(this.state)(this.props.dispatch);
     }
 
     render() {
@@ -32,4 +41,10 @@ export default class HomePage extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return state.authentication;
+}
+const connectedHomePage = connect(mapStateToProps)(HomePage);
+export default connectedHomePage;
 

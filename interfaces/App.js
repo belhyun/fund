@@ -5,17 +5,20 @@ import { Container, Row, Col } from 'reactstrap';
 import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { history } from './helpers/history';
-import $ from "jquery";
 import 'bootstrap';
+import appConstants from "./constants/appConstants";
+
+let APP_TOKEN = appConstants.KAKAO_APP_TOKEN;
 
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        const { dispatch } = this.props;
         history.listen((location, action) => {
-
         });
+    }
+    componentDidMount() {
+        Kakao.init(APP_TOKEN);
     }
     render() {
         return (

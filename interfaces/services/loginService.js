@@ -6,10 +6,17 @@ import { history } from '../helpers/history';
 
 const loginService = {
     login,
+    logout,
     preLogin
 };
 
 let log = console.log;
+
+
+function logout() {
+   localStorage.removeItem(loginConstants.LOGIN_KEY);
+   history.push("/");
+}
 
 function login() {
     let args = Array.prototype.slice.call(arguments);
@@ -71,9 +78,7 @@ function preLogin() {
     // if (authObj.loggingIn) {
     //     let expiredIn = moment().add(authObj['expiresIn'], "seconds");
     // }
-    if (authObj.loggingIn) {
-        history.push("/");
-    }
+    history.push(authObj.loggingIn? "/" : "/login");
     return {
         loggingIn: authObj.loggingIn,
         authObj: authObj.authObj

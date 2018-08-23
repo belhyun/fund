@@ -13,7 +13,8 @@ module.exports = {
         contentBase: [
             // path.resolve(__dirname, 'interfaces'),
             path.resolve(__dirname, 'interfaces', 'bundle'),
-            path.resolve(__dirname, 'node_modules')
+            path.resolve(__dirname, 'node_modules'),
+            path.resolve(__dirname, 'interfaces')
         ],
         host: "local.yonsei.ac.kr",
         hot: true,
