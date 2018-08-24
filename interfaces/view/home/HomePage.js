@@ -18,7 +18,22 @@ import FundCardPage from './fundcard/FundCardPage';
 import FooterPage from './footer/FooterPage';
 import connect from "react-redux/es/connect/connect";
 import loginActions from '../../actions/login/loginActions';
+import ui from 'redux-ui';
 let log = console.log;
+
+@ui({
+    state: {
+        isProfileImageSet: false,
+        test: "테스트"
+    },
+    reducer: (state, action) => {
+        switch (action.type) {
+            case 'UI_CHANGE_TEST':
+                return state.set("test", action.vars);
+        }
+        return state;
+    }
+})
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
@@ -29,11 +44,17 @@ class HomePage extends React.Component {
             submitted: false
         };
         loginActions.preLogin(this.state)(this.props.dispatch);
+        let vars = "테스트2";
+        this.props.dispatch({
+            type: "UI_CHANGE_TEST", vars
+        });
     }
 
     render() {
+        log(this.props.ui.test);
         return (
                 <div>
+                    <div>{ this.props.ui.test }</div>
                     <NavBarPage/>
                     <FundCardPage></FundCardPage>
                     <FooterPage></FooterPage>

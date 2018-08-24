@@ -1,6 +1,7 @@
 
 const util = {
-    objectToQueryString: objectToQueryString
+    objectToQueryString: objectToQueryString,
+    dispatcher: dispatcher
 };
 
 const objectToQueryString = function() {
@@ -20,6 +21,12 @@ const objectToQueryString = function() {
         host = host.concat("?");
     }
     return host.concat(results.join('&'));
+};
+
+function dispatcher(message) {
+    return dispatch => {
+        dispatch(message);
+    }
 };
 
 

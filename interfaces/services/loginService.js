@@ -15,7 +15,7 @@ let log = console.log;
 
 function logout() {
    localStorage.removeItem(loginConstants.LOGIN_KEY);
-   history.push("/");
+   history.push("/login");
 }
 
 function login() {

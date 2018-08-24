@@ -1,6 +1,4 @@
-
 import loginConstants from '../../constants/loginConstants';
-import cooker from '../../helpers/cooker';
 
 let authObj = localStorage.getItem(loginConstants.LOGIN_KEY);
 

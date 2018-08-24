@@ -1,6 +1,7 @@
 import loginConstants from '../../constants/loginConstants';
 import loginServices from '../../services/loginService';
-import cooker from "../../helpers/cooker";
+import util from "../../helpers/util";
+
 const loginActions = {
     login,
     logout,
@@ -10,27 +11,21 @@ const loginActions = {
 function preLogin(authObj) {
     let res = loginServices.preLogin();
     if (res.loggingIn) {
-        let authObj = res['authObj'];
-        return dispatch => {
-            dispatch({
-                type: loginConstants.LOGIN_SUCCESS, authObj
-            });
-        }
+        let authObj = _.pick(res, 'authObj');
+        return util.dispatcher({
+            type: loginConstants.LOGIN_SUCCESS, authObj
+        });
     }
-    return dispatch => {
-        dispatch({
-            type: loginConstants.LOGIN_NEEDED, authObj
-        })
-    }
+    return util.dispatcher({
+        type: loginConstants.LOGIN_NEEDED, authObj
+    });
 }
 
 function logout() {
     loginServices.logout();
-    return dispatch => {
-        dispatch({
-            type: loginConstants.LOGOUT_SUCCESS
-        })
-    }
+    return util.dispatcher({
+        type: loginConstants.LOGOUT_SUCCESS
+    })
 }
 
 function login(authObj) {
@@ -40,7 +35,11 @@ function login(authObj) {
             type: loginConstants.LOGIN_REQUEST, authObj
         }
     };
-
+    let success = function(authObj) {
+        return {
+            type: loginConstants.LOGIN_SUCCESS, authObj: authObj
+        }
+    };
     return dispatch => {
         dispatch(request({
             authObj
@@ -53,15 +52,8 @@ function login(authObj) {
                 error => {
 
                 }
-            )
+        )
     };
-
-    function success(authObj) {
-        return {
-            type: loginConstants.LOGIN_SUCCESS, authObj: authObj
-        }
-    }
-
 }
 
 export default loginActions;
