@@ -15,7 +15,6 @@ class LoginPage extends React.Component {
         super(props);
 
         //const { dispatch } = this.props;
-
         this.state = {
             accessToken: "",
             refreshToken: "",
@@ -32,6 +31,7 @@ class LoginPage extends React.Component {
     }
     loginWithKakao() {
         let success = function(authObj) {
+            console.log(authObj);
             let pickAuthObj = _.compose(_.head, _.values, _.partial(_.pick, authObj, _));
             this.setState({
                 accessToken: pickAuthObj('access_token'),

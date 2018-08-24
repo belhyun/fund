@@ -1,5 +1,5 @@
 import loginConstants from '../../constants/loginConstants';
-import loginServices from '../../services/loginService';
+import loginServices from '../../services/login/loginService';
 import util from "../../helpers/util";
 
 const loginActions = {

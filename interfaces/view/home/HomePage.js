@@ -44,17 +44,15 @@ class HomePage extends React.Component {
             submitted: false
         };
         loginActions.preLogin(this.state)(this.props.dispatch);
-        let vars = "테스트2";
-        this.props.dispatch({
-            type: "UI_CHANGE_TEST", vars
-        });
+        // let vars = "테스트2";
+        // this.props.dispatch({
+        //     type: "UI_CHANGE_TEST", vars
+        // });
     }
 
     render() {
-        log(this.props.ui.test);
         return (
                 <div>
-                    <div>{ this.props.ui.test }</div>
                     <NavBarPage/>
                     <FundCardPage></FundCardPage>
                     <FooterPage></FooterPage>
