@@ -3,6 +3,9 @@ const appConstants = {
     API_SERVER : {
         dev: "http://api.yonsei.ac.kr:8060",
         prod: "api.yonsei.ac.kr:8060"
+    },
+    KAKAO_API_SERVER : {
+        dev: "https://kapi.kakao.com"
     }
 };
 

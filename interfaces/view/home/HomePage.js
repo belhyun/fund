@@ -39,6 +39,7 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             accessToken: "",
+            expiresIn: "",
             refreshToken: "",
             tokenType: "",
             submitted: false

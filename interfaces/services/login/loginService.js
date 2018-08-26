@@ -2,6 +2,9 @@ import util from "../../helpers/util";
 import appConstants from "../../constants/appConstants";
 import loginConstants from "../../constants/loginConstants";
 import { history } from '../../helpers/history';
+import localStorageHandler from "../../helpers/localStorageHandler";
+import http from '../../helpers/http';
+
 
 
 const loginService = {
@@ -14,75 +17,72 @@ let log = console.log;
 
 
 function logout() {
-   localStorage.removeItem(loginConstants.LOGIN_KEY);
+   localStorageHandler.removeItem(loginConstants.LOGIN_KEY);
    history.push("/login");
 }
 
-function login() {
-    let args = Array.prototype.slice.call(arguments);
-    let authObj = _.first(args);
-
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin':'*'
-        },
-        body: JSON.stringify(authObj)
-    };
-
-    return fetch(
-        appConstants.API_SERVER[process.env.NODE_ENV].concat("/login"), requestOptions)
-        .then(handleResponse)
-        .then(resp => {
-            let authObj = resp['body'];
-            if (_.negate(_s.isBlank)(authObj['accessToken'])) {
-                log(localStorage.getItem(loginConstants.LOGIN_KEY));
-                if (_.isNull(localStorage.getItem(loginConstants.LOGIN_KEY))) {
-                    localStorage.setItem(loginConstants.LOGIN_KEY, JSON.stringify(authObj));
-                    history.push("/");
+function login(authObj) {
+    const LOGIN_KEY = loginConstants.LOGIN_KEY;
+    let requestToFundServer = userProfile => {
+        const requestBody = Object.assign(authObj, userProfile);
+        http.post("/login", {}, requestBody)
+            .then(handleResponse)
+            .then(resp => {
+                return Promise.resolve(_.negate(_.isUndefined)(resp['respCode']) && _.isEqual(resp['respCode'], "LOGIN_SUCCESS") && resp);
+            })
+            .then(resp => {
+                const authObj = resp['body'];
+                if (_.negate(_s.isBlank)(authObj['accessToken'])) {
+                    !localStorageHandler.getItem(LOGIN_KEY) && (function() {
+                        localStorageHandler.setItem(LOGIN_KEY, requestBody, authObj["expiresIn"]);
+                        history.push("/");
+                    })();
                 }
-            }
-            return authObj;
-        });
-    // return authObj;
-
-}
-
-function handleResponse(response) {
-
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        if (!response.ok) {
-            if (response.status === 401) {
-                location.reload(true);
-            }
-            const error = response.statusText;
-            return Promise.reject(error);
-        }
-        if( _.negate(_.isUndefined)(data['respCode']) && _.isEqual(data['respCode'], "LOGIN_SUCCESS")) {
-            return data;
-        }
-    });
-
+                return requestBody;
+            });
+    }
+    return http.postToKakao("/v2/user/me", authObj['accessToken'])
+        .then(getProfile)
+        .then(requestToFundServer);
 }
 
 function preLogin() {
-    let authObj = _.isNull(localStorage.getItem(loginConstants.LOGIN_KEY)) ?
-            loginConstants.EMPTY_AUTH_OBJ : {
+    let authObj = localStorageHandler.getItem(loginConstants.LOGIN_KEY) ? {
                 loggingIn: true,
-                authObj: JSON.parse(localStorage.getItem(loginConstants.LOGIN_KEY))
-            };
-    //토큰 만료시 로그인 처리 필요
-    // if (authObj.loggingIn) {
-    //     let expiredIn = moment().add(authObj['expiresIn'], "seconds");
-    // }
+                authObj: localStorageHandler.getItem(loginConstants.LOGIN_KEY)
+            } : loginConstants.EMPTY_AUTH_OBJ;
     history.push(authObj.loggingIn? "/" : "/login");
     return {
         loggingIn: authObj.loggingIn,
         authObj: authObj.authObj
     }
+}
+
+function handleResponse(response) {
+    if (!response) {
+        if (response.status === 401) {
+            location.reload(true);
+        }
+        const error = response.statusText;
+        return Promise.reject(error);
+    }
+    return response.data;
+}
+
+function getProfile(resp) {
+
+    let applyProperties = function() {
+        const properties = resp['properties'];
+        return function(key) {
+            return properties[key];
+        }
+    };
+
+    return resp && {
+        id: resp['id'],
+        nickname: applyProperties()('nickname'),
+    };
+
 }
 
 export default loginService;

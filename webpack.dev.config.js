@@ -21,7 +21,10 @@ module.exports = {
         inline: true,
         port: 4000
         // proxy: {
-        //     "**": "http://localhost:8060"
+        //     "**": {
+        //         "changeOrigin": true,
+        //         "secure": false
+        //     }
         // }
     },
     entry: './interfaces/index.js',
@@ -86,7 +89,8 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({
             _: 'underscore',
-            _s: 'underscore.string'
+            _s: 'underscore.string',
+            Modernizr: "modernizr"
         })//,
         //new RemoveStrictPlugin()
         //,
