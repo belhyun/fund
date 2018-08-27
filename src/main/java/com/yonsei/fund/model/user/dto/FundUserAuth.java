@@ -1,5 +1,6 @@
 package com.yonsei.fund.model.user.dto;
 
+import com.yonsei.fund.controller.login.condition.FundLoginCondition;
 import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -58,4 +59,8 @@ public class FundUserAuth extends FundAbstractTimestampEntity {
         return lastLoginAt.plusSeconds(expiresIn).compareTo(LocalDateTime.now()) < 0;
     }
 
+    public void extendExpires(FundLoginCondition condition) {
+        this.setAccessToken(condition.getAccessToken());
+        this.setExpiresIn(condition.getExpiresIn());
+    }
 }

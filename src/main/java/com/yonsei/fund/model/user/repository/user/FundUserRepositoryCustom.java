@@ -7,4 +7,6 @@ import com.yonsei.fund.model.user.dto.FundUserAuth;
 public interface FundUserRepositoryCustom {
 
     FundUser findByAccessToken(FundLoginCondition condition);
+
+    FundUser findByKakaoId(FundLoginCondition condition);
 }

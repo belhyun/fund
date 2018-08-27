@@ -5,8 +5,8 @@
   font-family:'Lato', Arial, sans-serif;
   font-size:16px;
   //margin:10px 1%;
-  max-width:220px;
-  min-width:220px;
+  max-width:210px;
+  min-width:210px;
   overflow:hidden;
   position:relative;
   text-align:left;
@@ -27,7 +27,7 @@
 }
 
 .snip1527 figcaption {
-  padding:15px 10px 15px;
+  //padding:15px 10px 15px;
   position:absolute;
   bottom:0;
   z-index:1;

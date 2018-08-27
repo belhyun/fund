@@ -22,6 +22,9 @@ public class FundUser extends FundAbstractTimestampEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String kakaoId;
+
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "fundUser")
@@ -40,6 +43,7 @@ public class FundUser extends FundAbstractTimestampEntity {
                 .tokenType(condition.getTokenType())
                 .build();
         fundUserAuth.setFundUser(fundUser);
+        fundUser.setKakaoId(condition.getKakaoId());
         fundUser.setFundUserAuth(fundUserAuth);
         return fundUser;
     }

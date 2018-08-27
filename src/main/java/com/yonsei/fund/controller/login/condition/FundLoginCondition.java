@@ -25,7 +25,7 @@ public class FundLoginCondition extends FundCondition {
 
     private String tokenType;
 
-    private Long id;
+    private String kakaoId;
 
     private String nickname;
 

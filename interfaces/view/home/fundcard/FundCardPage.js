@@ -19,7 +19,7 @@ export default class FundCardPage extends React.Component {
                                         연세대학교의 창립정신과 역사에는 ‘도전과 창조’, ‘나눔과 배려’, ‘소통과 공감’, ‘섬김과 존경’의 연세 DNA가 뿌리박혀 있습니다. 그렇기에 연세대학교는 늘 ‘미래를 향해 나아가는 꿈’, ‘다른 꿈’을 꿉니다.
                                     </p>
                                 </figcaption>
-                                <a href="#" />
+                                <a href="/fundCardDetail/1" />
                             </figure>
                         </li>
                         <li>

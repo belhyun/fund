@@ -16,9 +16,11 @@ import Styles from './css/styles.css';
 import NavBarPage from './navbar/NavBarPage';
 import FundCardPage from './fundcard/FundCardPage';
 import FooterPage from './footer/FooterPage';
+import FundModal from '../modal/fundModal';
 import connect from "react-redux/es/connect/connect";
 import loginActions from '../../actions/login/loginActions';
 import ui from 'redux-ui';
+
 let log = console.log;
 
 @ui({
@@ -57,6 +59,7 @@ class HomePage extends React.Component {
                     <NavBarPage/>
                     <FundCardPage></FundCardPage>
                     <FooterPage></FooterPage>
+                    <FundModal></FundModal>
                 </div>
         );
     }

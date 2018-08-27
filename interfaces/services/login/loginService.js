@@ -76,7 +76,7 @@ function getProfile(resp) {
     };
 
     return resp && {
-        id: resp['id'],
+        kakaoId: resp['id'],
         nickname: applyProperties()('nickname'),
     };
 

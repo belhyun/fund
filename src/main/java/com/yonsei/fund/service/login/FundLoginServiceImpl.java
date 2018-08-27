@@ -22,13 +22,13 @@ public class FundLoginServiceImpl implements FundLoginService {
     @Override
     public FundRestResponse<FundLoginDto> login(@NotNull FundLoginCondition condition) {
 
-        FundUser fundUser = fundUserRepository.findByAccessToken(condition);
+        FundUser fundUser = fundUserRepository.findByKakaoId(condition);
 
         return ifIsNotNullApplyFunc(fundUser,
                 () -> {
                     if (fundUser.getFundUserAuth().isExpired()) {
-
-                        return getInstance().accTokenExpired();
+                        fundUser.getFundUserAuth().extendExpires(condition);
+                        fundUserRepository.save(fundUser);
                     }
                     return getInstance().success(fundUser);
                 },

@@ -1,5 +1,6 @@
 package com.yonsei.fund.model.user.repository.user;
 
+import com.google.common.base.Preconditions;
 import com.querydsl.jpa.JPQLQuery;
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
 import com.yonsei.fund.model.user.dto.FundUser;
@@ -24,6 +25,16 @@ public class FundUserRepositoryImpl extends QuerydslRepositorySupport implements
 
         JPQLQuery<FundUser> query = from(qFundUser).innerJoin(qFundUser.fundUserAuth, qFundUserAuth)
                 .where(qFundUserAuth.accessToken.eq(condition.getAccessToken()));
+
+        return query.fetchOne();
+    }
+
+    @Override
+    public FundUser findByKakaoId(FundLoginCondition condition) {
+
+        Preconditions.checkNotNull(condition.getKakaoId());
+        JPQLQuery<FundUser> query = from(qFundUser)
+                .where(qFundUser.kakaoId.eq(condition.getKakaoId()));
 
         return query.fetchOne();
     }
