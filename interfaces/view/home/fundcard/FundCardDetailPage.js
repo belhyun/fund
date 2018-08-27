@@ -81,7 +81,7 @@ export default class FundCardDetailPage extends React.Component {
                                                     </div>
                                                 </div>
                                             </li>
-                                        </ul><button className="btn btn-light" type="button" style={{marginLeft: 601, marginTop: '-9px'}}>Add Comment</button></div>
+                                        </ul><button className="btn btn-light" type="button" style={{}}>Add Comment</button></div>
                                 </div>
                             </div>
                         </div>

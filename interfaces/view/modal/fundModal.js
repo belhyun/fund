@@ -10,7 +10,12 @@ import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
     reducer: (state, action) => {
         switch (action.type) {
             case 'TOGGLE_MODAL':
-                return state.set("modal", action.modal);
+                state.set("modal", action.modal);
+            case '@@redux-ui/UNMOUNT_UI_STATE':
+                return {
+
+                }
+                //state.set("modal", false);
         }
         return state;
     }

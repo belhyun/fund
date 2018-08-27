@@ -2,6 +2,7 @@ import loginConstants from "../../constants/loginConstants";
 import {history} from '../../helpers/history';
 import localStorageHandler from "../../helpers/localStorageHandler";
 import http from '../../helpers/http';
+import userService from '../user/userService';
 
 
 const loginService = {
@@ -21,8 +22,8 @@ function logout() {
 function login(authObj) {
     const LOGIN_KEY = loginConstants.LOGIN_KEY;
     let requestToFundServer = userProfile => {
-        const requestBody = Object.assign(authObj, userProfile);
-        http.post("/login", {}, requestBody)
+        const userInfo = Object.assign(authObj, userProfile);
+        http.post("/login", {}, _.omit(userInfo, 'userImage'))
             .then(handleResponse)
             .then(resp => {
                 return Promise.resolve(_.negate(_.isUndefined)(resp['respCode']) && _.isEqual(resp['respCode'], "LOGIN_SUCCESS") && resp);
@@ -31,15 +32,15 @@ function login(authObj) {
                 const authObj = resp['body'];
                 if (_.negate(_s.isBlank)(authObj['accessToken'])) {
                     !localStorageHandler.getItem(LOGIN_KEY) && (function() {
-                        localStorageHandler.setItem(LOGIN_KEY, requestBody, authObj["expiresIn"]);
+                        localStorageHandler.setItem(LOGIN_KEY, userInfo, authObj["expiresIn"]);
                         history.push("/");
                     })();
                 }
-                return requestBody;
+                return userInfo;
             });
     }
     return http.postToKakao("/v2/user/me", authObj['accessToken'])
-        .then(getProfile)
+        .then(userService.getUserProfile)
         .then(requestToFundServer);
 }
 
@@ -64,22 +65,6 @@ function handleResponse(response) {
         return Promise.reject(error);
     }
     return response.data;
-}
-
-function getProfile(resp) {
-
-    let applyProperties = function() {
-        const properties = resp['properties'];
-        return function(key) {
-            return properties[key];
-        }
-    };
-
-    return resp && {
-        kakaoId: resp['id'],
-        nickname: applyProperties()('nickname'),
-    };
-
 }
 
 export default loginService;

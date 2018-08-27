@@ -1,7 +1,7 @@
 import React from "react";
 import connect from "react-redux/es/connect/connect";
 import loginActions from '../../../actions/login/loginActions';
-import userActions from '../../../actions/user/userActions';
+
 let log = console.log;
 class NavBarPage extends React.Component {
     constructor(props) {
@@ -11,8 +11,7 @@ class NavBarPage extends React.Component {
     }
     componentDidMount() {
         if (this.props.loggingIn) {
-            userActions.getUserProfile(this.props.authObj);
-            //this.props.dispatch()
+            console.log(this.props);
         }
     }
 

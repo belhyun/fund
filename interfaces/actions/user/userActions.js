@@ -1,12 +1,9 @@
-import userService from '../../services/user/userService';
-import util from "../../helpers/util";
-
 const userActions = {
-    getUserProfile: getUserProfile
+    updateProfileImage: updateProfileImage
 
 };
 
-function getUserProfile(authObj) {
-    userService.getUserProfile(authObj);
+function updateProfileImage() {
+
 }
 export default userActions;

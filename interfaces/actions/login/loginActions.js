@@ -30,12 +30,12 @@ function logout() {
 
 function login(authObj) {
 
-    let request = function(authObj) {
+    const request = function(authObj) {
         return {
             type: loginConstants.LOGIN_REQUEST, authObj
         }
     };
-    let success = function(authObj) {
+    const success = function(authObj) {
         return {
             type: loginConstants.LOGIN_SUCCESS, authObj: authObj
         }
@@ -46,13 +46,12 @@ function login(authObj) {
         }));
         loginServices.login(authObj)
             .then(
-                authObj => {
+                userInfo => {
                     dispatch(success(authObj));
+                    return userInfo;
                 },
-                error => {
-
-                }
-        )
+                error => {}
+            )
     };
 }
 
