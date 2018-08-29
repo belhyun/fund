@@ -9,7 +9,8 @@
     "watch": "webpack -d --watch",
     "dev": "webpack --config webpack.dev.config.js --mode development",
     "prod": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "admin": "admin ./admin/config/mysql --log"
   },
   "author": "",
   "license": "ISC",
