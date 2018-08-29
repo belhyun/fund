@@ -1,11 +1,11 @@
-package com.yonsei.fund.model.user.repository.user;
+package com.yonsei.fund.model.user.repository;
 
 import com.google.common.base.Preconditions;
 import com.querydsl.jpa.JPQLQuery;
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
-import com.yonsei.fund.model.user.dto.FundUser;
-import com.yonsei.fund.model.user.dto.QFundUser;
-import com.yonsei.fund.model.user.dto.QFundUserAuth;
+import com.yonsei.fund.model.user.entity.FundUser;
+import com.yonsei.fund.model.user.entity.QFundUser;
+import com.yonsei.fund.model.user.entity.QFundUserAuth;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 

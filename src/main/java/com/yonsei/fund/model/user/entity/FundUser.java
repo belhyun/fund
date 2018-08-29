@@ -1,12 +1,16 @@
-package com.yonsei.fund.model.user.dto;
+package com.yonsei.fund.model.user.entity;
 
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
 import com.yonsei.fund.controller.login.dto.FundLoginDto;
 import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
+import com.yonsei.fund.model.fund.entity.FundCard;
+import com.yonsei.fund.model.fund.entity.FundCardComment;
+import com.yonsei.fund.model.fund.entity.FundCardDonation;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -25,10 +29,28 @@ public class FundUser extends FundAbstractTimestampEntity {
     @Column
     private String kakaoId;
 
+    @Column
+    private String nickname;
+
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "fundUser")
     private FundUserAuth fundUserAuth;
+
+    @OneToMany(fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "fundUser")
+    private List<FundCard> fundCards;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "fundUser")
+    private List<FundCardComment> fundCardComments;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "fundUser")
+    private List<FundCardDonation> fundCardDonations;
 
 
     public static FundUser makeFromCondition(FundLoginCondition condition) {

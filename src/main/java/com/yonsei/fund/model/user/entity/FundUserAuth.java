@@ -1,4 +1,4 @@
-package com.yonsei.fund.model.user.dto;
+package com.yonsei.fund.model.user.entity;
 
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
 import com.yonsei.fund.model.base.FundAbstractTimestampEntity;

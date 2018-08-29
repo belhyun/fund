@@ -1,8 +1,7 @@
-package com.yonsei.fund.model.user.repository.user;
+package com.yonsei.fund.model.user.repository;
 
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
-import com.yonsei.fund.model.user.dto.FundUser;
-import com.yonsei.fund.model.user.dto.FundUserAuth;
+import com.yonsei.fund.model.user.entity.FundUser;
 
 public interface FundUserRepositoryCustom {
 
