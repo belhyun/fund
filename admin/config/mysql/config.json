@@ -1,0 +1,15 @@
+{
+    "mysql": {
+        "database": "fund",
+        "user": "root",
+        "password": "fund"
+    },
+    "server": {
+        "port": 3002
+    },
+    "app": {
+        "layouts": true,
+        "themes": true,
+        "languages": true
+    }
+}

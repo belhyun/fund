@@ -1,0 +1,23 @@
+{
+  "name": "fund-admin",
+  "version": "1.0.0",
+  "description": "Fund Admin.",
+  "license"   : "",
+  "homepage"  : "",
+  "author": {
+    "name"  : "belhyun",
+    "email" : "belhyun@yonsei.ac.kr"
+  },
+  "repository": {
+    "type"  : "",
+    "url"   : ""
+  },
+  "dependencies": {
+    "express"    : "3.4.4",
+    "moment"     : "*",
+    "cloudinary" : "*"
+  },
+  "scripts": {
+    "postinstall": "node path.js"
+  }
+}
