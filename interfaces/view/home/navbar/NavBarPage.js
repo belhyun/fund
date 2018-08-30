@@ -11,6 +11,7 @@ class NavBarPage extends React.Component {
     }
     componentDidMount() {
         if (this.props.loggingIn) {
+            console.log("NavBarPage DidMount")
             console.log(this.props);
         }
     }

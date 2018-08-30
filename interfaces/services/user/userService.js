@@ -14,7 +14,9 @@ function getUserProfile(resp) {
     return resp && {
         kakaoId: resp['id'],
         nickname: applyProperties('nickname'),
-        userImage: {
+        userProfile: {
+            kakaoId: resp['id'],
+            nickname: applyProperties('nickname'),
             profileImage: applyProperties('profile_image'),
             thumbnailImage: applyProperties('thumbnail_image')
         }

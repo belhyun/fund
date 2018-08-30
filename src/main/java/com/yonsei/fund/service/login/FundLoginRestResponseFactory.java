@@ -18,15 +18,6 @@ public class FundLoginRestResponseFactory {
 
     }
 
-    public FundRestResponse<FundLoginDto> accTokenExpired() {
-
-        return FundRestResponse.make(
-                FundLoginConstants.ACC_TOKEN_EXPIRED,
-                FundRestResponseCode.FundRespCode.ACC_TOKEN_EXPIRED,
-                FundLoginDto.builder().build()
-        );
-    }
-
     public FundRestResponse<FundLoginDto> success(FundUser fundUser) {
 
         return FundRestResponse.make(

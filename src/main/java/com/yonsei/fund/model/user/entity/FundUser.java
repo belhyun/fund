@@ -66,6 +66,7 @@ public class FundUser extends FundAbstractTimestampEntity {
                 .build();
         fundUserAuth.setFundUser(fundUser);
         fundUser.setKakaoId(condition.getKakaoId());
+        fundUser.setNickname(condition.getNickname());
         fundUser.setFundUserAuth(fundUserAuth);
         return fundUser;
     }

@@ -29,7 +29,6 @@ public class FundCard extends FundAbstractTimestampEntity {
     private String title;
 
     @Column
-    @Lob
     private String contents;
 
     /**

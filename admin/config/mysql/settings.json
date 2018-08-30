@@ -20,7 +20,7 @@
                     "show": true
                 },
                 "editview": {
-                    "show": true
+                    "show": false
                 }
             },
             {
@@ -303,7 +303,7 @@
                     "show": true
                 },
                 "editview": {
-                    "show": true
+                    "show": false
                 }
             },
             {
@@ -326,9 +326,25 @@
                 "name": "name",
                 "verbose": "name",
                 "control": {
-                    "text": true
+                    "file": true
                 },
                 "type": "varchar(45)",
+                "allowNull": true,
+                "defaultValue": null,
+                "listview": {
+                    "show": true
+                },
+                "editview": {
+                    "show": true
+                }
+            },
+            {
+                "name": "is_main",
+                "verbose": "is_main",
+                "control": {
+                    "text": true
+                },
+                "type": "boolean",
                 "allowNull": true,
                 "defaultValue": null,
                 "listview": {

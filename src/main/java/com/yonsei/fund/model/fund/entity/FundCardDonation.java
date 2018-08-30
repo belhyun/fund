@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="fund_donation")
+@Table(name="fund_card_donation")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

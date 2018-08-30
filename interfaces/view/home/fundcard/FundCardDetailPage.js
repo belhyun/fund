@@ -15,9 +15,8 @@ export default class FundCardDetailPage extends React.Component {
                     <div className="container">
                         <div className="jumbotron" style={{marginTop: 15}}>
                             <h1>이 학생이 공부할 수 있다면..</h1>
-                            <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac
-                                facilisis in, egestas eget quam.</p>
-                            <p><a className="btn btn-primary" role="button" href="#">Learn more</a></p>
+                            <p>저소득층 xxx는 오늘도 돈이 없어 공부를 하지 못합니다.</p>
+                            <p><a className="btn btn-primary" role="button" href="#">보러가기</a></p>
                         </div>
                         <div className="row">
                             <div className="col-md-7">

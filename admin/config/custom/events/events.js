@@ -1,119 +1,111 @@
 
-var moment = require('moment');
-
-function quotes (args, result) {
-    return args.db.client.pg ? result.replace(/`/g,'"') : result;
-}
+// var moment = require('moment');
+//
+// function quotes (args, result) {
+//     return args.db.client.pg ? result.replace(/`/g,'"') : result;
+// }
 
 
 exports.preSave = function (req, res, args, next) {
-    if (args.debug) console.log('preSave');
-    debugger;
-
-    // created_at, updated_at
-    if (args.name == 'user') {
-        var now = moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
-            record = args.data.view.user.records[0].columns;
-        if (args.action == 'insert') {
-            record.created_at = now;
-            record.updated_at = now;
-        }
-        else if (args.action == 'update') {
-            record.updated_at = now;
-        }
-    }
-
-    // soft delete
-    if (args.name == 'purchase') {
-        var now = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
-        // all inline oneToOne and manyToOne records should be marked as deleted
-        for (var table in args.data.manyToOne) {
-            var inline = args.data.manyToOne[table];
-            if (!inline.records) continue;
-            for (var i=0; i < inline.records.length; i++) {
-                if (args.action != 'remove' && !inline.records[i].remove) continue;
-                // instead of deleting the record
-                delete inline.records[i].remove;
-                // update it
-                inline.records[i].columns.deleted = (args.db.client.sqlite ? 1 : true);
-                inline.records[i].columns.deleted_at = now;
-            }
-        }
-        // parent record
-        if (args.action == 'remove') {
-            // instead of deleting the record
-            args.action = 'update';
-            // update it
-            var record = args.data.view.purchase.records[0].columns;
-            record.deleted = (args.db.client.sqlite ? 1 : true);
-            record.deleted_at = now;
-        }
-    }
-
     next();
 }
 
 
 // upload image to cloudinary.com
-var config = {
-    cloud_name: '',
-    api_key: '',
-    api_secret: ''
-};
-if (config.api_secret) {
-    var cloudinary = require('cloudinary'),
-        fs = require('fs'),
-        path = require('path');
-    cloudinary.config(config);
-}
+// var config = {
+//     cloud_name: '',
+//     api_key: '',
+//     api_secret: ''
+// };
+// if (config.api_secret) {
+//     var cloudinary = require('cloudinary'),
+//         fs = require('fs'),
+//         path = require('path');
+//     cloudinary.config(config);
+// }
 
 exports.postSave = function (req, res, args, next) {
-    if (args.debug) console.log('postSave');
-    debugger;
+    const aws = require('aws-sdk');
+    const fs = require('fs');
+    const path = require('path');
+    const fileType = require('file-type');
+    const mysql = require('mysql');
+
+    if (args.name == 'fund_card_photo') {
+
+        let fname = args.data.view.fund_card_photo.records[0].columns.name;
+        let fpath = path.join(args.upath, fname);
+
+        let data = fs.readFileSync(fpath);
+        aws.config.region = 'ap-northeast-2'; //Seoul
+        aws.config.update({
+            accessKeyId: "AKIAIYS42IXDZWW5EVWQ",
+            secretAccessKey: "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"
+        });
+        let s3_params = {
+            Bucket: 'belhyun-fund',
+            Key: fname,
+            ACL: 'public-read',
+            ContentType: fileType(data)['mime']
+        };
+
+        let s3obj = new aws.S3({ params: s3_params });
+        s3obj.upload({ Body: data }).
+        on('httpUploadProgress', function (evt) { console.log(evt); }).
+        send(function (err, data) {
+            //let record = args.data.view.fund_card_photo.records[0].columns;
+            //record.image_url = data.Location;
+            //console.log(data.Location);
+            var connection = mysql.createConnection({
+                host     : 'localhost',
+                user     : 'root',
+                password : 'fund',
+                database : 'fund'
+            });
+
+            connection.connect();
+
+            console.log(args.data.view.fund_card_photo.records[0]);
+
+            let sql = "UPDATE fund_card_photo SET image_url = " + "'" + data.Location + "' WHERE id= " +
+                    args.data.view.fund_card_photo.records[0].pk[0];
+            connection.query(sql, function (err, rows, fields) {
+                if (err) console.log(err);
+                // console.log('rows', rows); //row는 배열이다.
+                // console.log('fields', fields); //fields는 컬럼을 의미한다.
+            });
+
+            connection.end();//접속이 끊긴다.
+        });
+    }
+
+    // if (args.debug) console.log('postSave');
+    // debugger;
 
     // upload image to a third party server
-    if (args.name == 'item') {
-        // provide your credentials to cloudinary.com
-        if (!config.api_secret) return next();
-        // file upload control data
-        var image = args.upload.view.item.records[0].columns.image;
-        // in case file is chosen through the file input control
-        if (image.name) {
-            // file name of the image already uploaded to the upload folder
-            var fname = args.data.view.item.records[0].columns.image;
-            // upload
-            var fpath = path.join(args.upath, fname);
-            cloudinary.uploader.upload(fpath, function (result) {
-                console.log(result);
-                next();
-            });
-        }
-        else next();
-    }
-    else next();
+    // if (args.name == 'item') {
+    //     // provide your credentials to cloudinary.com
+    //     if (!config.api_secret) return next();
+    //     // file upload control data
+    //     var image = args.upload.view.item.records[0].columns.image;
+    //     // in case file is chosen through the file input control
+    //     if (image.name) {
+    //         // file name of the image already uploaded to the upload folder
+    //         var fname = args.data.view.item.records[0].columns.image;
+    //         // upload
+    //         var fpath = path.join(args.upath, fname);
+    //         cloudinary.uploader.upload(fpath, function (result) {
+    //             console.log(result);
+    //             next();
+    //         });
+    //     }
+    //     else next();
+    // }
+    // else next();
+    next();
 }
 
 
 exports.preList = function (req, res, args, next) {
-    if (args.debug) console.log('preList');
-    debugger;
-
-    if (args.name == 'purchase') {
-        // check if we're using listview's filter
-        // and actually want to see soft deleted records
-        var filter = args.filter.columns;
-        if (filter && (filter.deleted=='1' || filter.deleted_at && filter.deleted_at[0])) {
-            return next();
-        }
-        // otherwise hide the soft deleted records by default
-        var filter = quotes(args,
-            ' `purchase`.`deleted` IS NULL OR `purchase`.`deleted` = ' +
-            (args.db.client.pg ? 'false' : 0) +
-            ' OR `purchase`.`deleted_at` IS NULL ');
-        args.statements.where
-            ? args.statements.where += ' AND ' + filter
-            : args.statements.where = ' WHERE ' + filter
-    }
-
     next();
 }

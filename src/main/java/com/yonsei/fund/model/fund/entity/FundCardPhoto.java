@@ -28,6 +28,9 @@ public class FundCardPhoto extends FundAbstractTimestampEntity {
     private String name;
 
     @Column
+    private boolean isMain;
+
+    @Column
     private String imageUrl;
 
 }
