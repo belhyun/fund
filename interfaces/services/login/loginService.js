@@ -35,7 +35,7 @@ function login(authObj) {
                     !localStorageHandler.getItem(LOGIN_KEY) && (function() {
                         localStorageHandler.setItem(LOGIN_KEY, {
                             authObj: omitFromMergedAuthAndUserProfile("userProfile", "kakaoId", "nickname"),
-                            userProfile
+                            userProfile: userProfile.userProfile
                         }, authObj["expiresIn"]);
                         history.push("/");
                     })();
