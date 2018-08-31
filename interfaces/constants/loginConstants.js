@@ -6,7 +6,7 @@ const loginConstants = {
     LOGIN_FAILURE: 'USERS_LOGIN_FAILURE',
     LOGIN_KEY: "FUND_ACCESS_TOKEN",
     EMPTY_FUND_OBJ: {
-        loggingIn: false, authObj:{}, userProfile:{}
+        loggingIn: false, authObj:{}
     }
 };
 

@@ -22,9 +22,9 @@ function logout() {
 function login(authObj) {
     const LOGIN_KEY = loginConstants.LOGIN_KEY;
     let requestToFundServer = userProfile => {
-        const omitFromUserInfo = _.partial(_.omit, authObj);
-        const requestBody = Object.assign(authObj, omitFromUserInfo(userProfile, 'userProfile'));
-        http.post("/login", {}, requestBody)
+        const mergedAuthAndUserProfile = Object.assign(authObj, userProfile);
+        const omitFromMergedAuthAndUserProfile = _.partial(_.omit, mergedAuthAndUserProfile);
+        http.post("/login", {}, omitFromMergedAuthAndUserProfile("userProfile"))
             .then(handleResponse)
             .then(resp => {
                 return Promise.resolve(_.negate(_.isUndefined)(resp['respCode']) && _.isEqual(resp['respCode'], "LOGIN_SUCCESS") && resp);
@@ -34,8 +34,8 @@ function login(authObj) {
                 if (_.negate(_s.isBlank)(authObj['accessToken'])) {
                     !localStorageHandler.getItem(LOGIN_KEY) && (function() {
                         localStorageHandler.setItem(LOGIN_KEY, {
-                            authObj:omitFromUserInfo('kakaoId', 'nickname'),
-                            userProfile: userProfile
+                            authObj: omitFromMergedAuthAndUserProfile("userProfile", "kakaoId", "nickname"),
+                            userProfile
                         }, authObj["expiresIn"]);
                         history.push("/");
                     })();
@@ -49,15 +49,14 @@ function login(authObj) {
 }
 
 function preLogin() {
-    let fundObj = localStorageHandler.getItem(loginConstants.LOGIN_KEY) ? {
+    let authObj = localStorageHandler.getItem(loginConstants.LOGIN_KEY) ? {
                 loggingIn: true,
-                authObj: localStorageHandler.getItem(loginConstants.LOGIN_KEY).authObj,
-                userProfile: localStorageHandler.getItem(loginConstants.LOGIN_KEY).userProfile
+                authObj: localStorageHandler.getItem(loginConstants.LOGIN_KEY).authObj
             } : loginConstants.EMPTY_FUND_OBJ;
-    history.push(fundObj.loggingIn? "/" : "/login");
+    history.push(authObj.loggingIn? "/" : "/login");
     return {
-        loggingIn: fundObj.loggingIn,
-        authObj: fundObj.authObj
+        loggingIn: authObj.loggingIn,
+        authObj: authObj.authObj
     }
 }
 
