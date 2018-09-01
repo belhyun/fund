@@ -2,10 +2,36 @@ import React from "react";
 
 import Product_Details from "../css/detail/Product-Details.css";
 import NavBarPage from "../navbar/NavBarPage";
+import { HorizontalBar } from 'react-chartjs-2';
+
+
+const data = {
+    labels: ['기부금액'],
+    datasets: [
+        {
+            label: '기부현황',
+            backgroundColor: 'rgba(255,99,132,0.2)',
+            borderColor: 'rgba(255,99,132,1)',
+            borderWidth: 1,
+            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+            hoverBorderColor: 'rgba(255,99,132,1)',
+            data: [65],
+            responsive: true
+        }
+    ]
+};
 
 export default class FundCardDetailPage extends React.Component {
+
     constructor(props) {
         super(props);
+    }
+
+    componentWillMount(){
+    }
+
+    componentDidMount(){
+
     }
 
     render() {
@@ -13,10 +39,14 @@ export default class FundCardDetailPage extends React.Component {
                 <div>
                     <NavBarPage/>
                     <div className="container">
-                        <div className="jumbotron" style={{marginTop: 15}}>
-                            <h1>이 학생이 공부할 수 있다면..</h1>
-                            <p>저소득층 xxx는 오늘도 돈이 없어 공부를 하지 못합니다.</p>
-                            <p><a className="btn btn-primary" role="button" href="#">보러가기</a></p>
+                        <div className="jumbotron" style={{marginTop: 15, overflow: 'hidden'}}>
+                            <div>
+                                <h1>기부타이틀기부타이틀기부타이틀기부타이틀기부타이틀기부타이틀</h1>
+                                <p>상세설명상세설명상세설명상세설명상세설명상세설명</p>
+                            </div>
+                            <div>
+                                <HorizontalBar data={data} width={600} height={100} />
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col-md-7">

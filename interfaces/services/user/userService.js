@@ -1,8 +1,13 @@
+
+import localStorageHandler from '../../helpers/localStorageHandler';
+import loginConstants from "../../constants/loginConstants";
+
 const userService = {
-    getUserProfile: getUserProfile
+    getUserProfileFromKakao: getUserProfileFromKakao,
+    getUserProfileFromLocalStorage: getUserProfileFromLocalStorage
 };
 
-function getUserProfile(resp) {
+function getUserProfileFromKakao(resp) {
 
     let applyProperties = (function() {
         const properties = resp['properties'];
@@ -21,6 +26,14 @@ function getUserProfile(resp) {
             thumbnailImage: applyProperties('thumbnail_image')
         }
     };
+}
+
+function getUserProfileFromLocalStorage() {
+
+    const storageObj = localStorageHandler.getItem(loginConstants.LOGIN_KEY);
+
+    return storageObj ? storageObj.userProfile : {};
+
 }
 
 export default userService;

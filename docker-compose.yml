@@ -21,5 +21,5 @@ services:
       TZ: "Asia/Seoul"
     volumes:
       - ./data/db:/var/lib/mysql
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --disable-partition-engine-check
 

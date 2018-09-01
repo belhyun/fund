@@ -20,6 +20,7 @@ import FundModal from '../modal/fundModal';
 import connect from "react-redux/es/connect/connect";
 import loginActions from '../../actions/login/loginActions';
 import ui from 'redux-ui';
+import PropTypes from 'prop-types';
 
 let log = console.log;
 
@@ -36,6 +37,9 @@ let log = console.log;
         return state;
     }
 })
+@connect(state => ({
+    authentication: state.authentication
+}))
 class HomePage extends React.Component {
     constructor(props) {
         super(props);
@@ -64,10 +68,9 @@ class HomePage extends React.Component {
         );
     }
 }
-
-function mapStateToProps(state) {
-    return state.authentication;
+HomePage.propTypes = {
+    authentication: PropTypes.object
 }
-const connectedHomePage = connect(mapStateToProps)(HomePage);
-export default connectedHomePage;
+
+export default HomePage;
 

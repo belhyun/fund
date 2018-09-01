@@ -44,7 +44,7 @@ function login(authObj) {
             });
     }
     return http.postToKakao("/v2/user/me", authObj['accessToken'])
-        .then(userService.getUserProfile)
+        .then(userService.getUserProfileFromKakao)
         .then(requestToFundServer);
 }
 

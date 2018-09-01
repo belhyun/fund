@@ -8,6 +8,6 @@ var fs = require('fs'),
 
     var data = fs.readFileSync(fpath, 'utf8');
     fs.writeFileSync(fpath,
-            data.replace(/C:\\workspace\\fund\\admin\\/g, __dirname)
+            data.replace(/\/Users\/belhyun\/Documents\/workspace\/fund\/admin/g, __dirname)
     );
 });

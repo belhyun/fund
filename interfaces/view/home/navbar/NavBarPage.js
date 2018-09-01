@@ -1,8 +1,28 @@
 import React from "react";
 import connect from "react-redux/es/connect/connect";
 import loginActions from '../../../actions/login/loginActions';
+import { updateProfileImage } from '../../../actions/user/userActions';
+import ui from 'redux-ui';
+import PropTypes from 'prop-types';
 
 let log = console.log;
+@ui({
+    state: {
+        userProfile: {
+            thumbnailImage: "/assets/images/avatar.jpg"
+        }
+    },
+    reducer: (state, action) => {
+        switch(action.type) {
+            case "UPDATE_PROFILE_IMAGE":
+                return state.set("userProfile", action.userProfile);
+        }
+        return state;
+    }
+})
+@connect(state => ({
+    authentication: state.authentication
+}))
 class NavBarPage extends React.Component {
     constructor(props) {
         super(props);
@@ -10,9 +30,11 @@ class NavBarPage extends React.Component {
         this.logout= this.logout.bind(this);
     }
     componentDidMount() {
-        if (this.props.loggingIn) {
-            console.log("NavBarPage DidMount")
-            console.log(this.props);
+        if (this.props.authentication.loggingIn) {
+
+            const action = updateProfileImage(this.props.ui);
+
+            _.isFunction(action) && action(this.props.dispatch);
         }
     }
 
@@ -33,7 +55,7 @@ class NavBarPage extends React.Component {
                                 {/*<li className="nav-item" role="presentation"><a className="nav-link custom-navbar" href="#"> Roles<span className="badge badge-pill badge-primary">new</span></a></li>*/}
                             </ul>
                             <ul className="nav navbar-nav ml-auto">
-                                <li className="dropdown"><a className="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"> <img src="/assets/images/avatar.jpg" className="dropdown-image" /></a>
+                                <li className="dropdown"><a className="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"> <img src={this.props.ui.userProfile.thumbnailImage} className="dropdown-image" /></a>
                                     <div className="dropdown-menu dropdown-menu-right" role="menu"><a className="dropdown-item" role="presentation" href="/login">Login</a>{/*<a className="dropdown-item" role="presentation" href="#">Payments </a>*/}<a className="dropdown-item" role="presentation" href="#" onClick={this.logout}>Logout</a></div>
                                 </li>
                             </ul>
@@ -43,9 +65,8 @@ class NavBarPage extends React.Component {
         );
     }
 }
-
-function mapStateToProps(state) {
-    return state.authentication;
+NavBarPage.propTypes = {
+    authentication: PropTypes.object
 }
-const connectedNavBarPage = connect(mapStateToProps)(NavBarPage);
-export default connectedNavBarPage;
+
+export default NavBarPage;

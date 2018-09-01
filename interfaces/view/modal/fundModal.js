@@ -5,7 +5,7 @@ import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 
 @ui({
     state: {
-        modal: true
+        modal: false
     },
     reducer: (state, action) => {
         switch (action.type) {
