@@ -1,8 +1,7 @@
 import React from "react";
 
-import Product_Details from "../css/detail/Product-Details.css";
 import NavBarPage from "../navbar/NavBarPage";
-import { HorizontalBar } from 'react-chartjs-2';
+import {HorizontalBar} from 'react-chartjs-2';
 
 
 const data = {

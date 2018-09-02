@@ -10,6 +10,10 @@ import { history } from './helpers/history';
 import 'bootstrap';
 import appConstants from "./constants/appConstants";
 
+((r) => {
+    r.keys().forEach(r)
+})(require.context('./', true, /\.css$/));
+
 const APP_TOKEN = appConstants.KAKAO_APP_TOKEN;
 
 

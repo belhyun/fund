@@ -1,5 +1,6 @@
 package com.yonsei.fund.controller.login;
 
+import com.yonsei.fund.controller.api.FundAPIController;
 import com.yonsei.fund.controller.login.condition.FundLoginCondition;
 import com.yonsei.fund.controller.login.dto.FundLoginDto;
 import com.yonsei.fund.service.login.FundLoginService;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
 @CrossOrigin
-public class FundLoginController {
+@Controller
+@ResponseBody
+public class FundLoginController extends FundAPIController {
 
     @Autowired
     private FundLoginService fundLoginService;

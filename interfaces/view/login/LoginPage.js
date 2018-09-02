@@ -1,38 +1,36 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import './LoginPage.css';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import loginActions from '../../actions/login/loginActions';
-import appConstants from '../../constants/appConstants';
-import cooker from '../../helpers/cooker';
 
-let log = console.log;
-let APP_TOKEN = appConstants.KAKAO_APP_TOKEN;
+import FundSpinner from '../spinner/FundSpinner';
+import ui from "redux-ui";
 
-class LoginPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        //const { dispatch } = this.props;
-        this.state = {
+@ui({
+    state: {
+        auth: {
             accessToken: "",
             refreshToken: "",
             tokenType: "",
             submitted: false
-        };
-        loginActions.preLogin(this.state)(this.props.dispatch);
+        }
+    },
+    persist: true
+})
+@connect(state => ({
+    authentication: state.authentication
+}))
+
+class LoginPage extends React.Component {
+    constructor(props) {
+        super(props);
+        loginActions.preLogin(this.props.ui.auth)(this.props.dispatch);
         this.loginWithKakao = this.loginWithKakao.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-    componentDidMount() {
-    }
-    handleChange(e) {
     }
     loginWithKakao() {
         let success = function(authObj) {
             let pickAuthObj = _.compose(_.head, _.values, _.partial(_.pick, authObj, _));
-            this.setState({
+            loginActions.login({
                 accessToken: pickAuthObj('access_token'),
                 refreshToken: pickAuthObj('refresh_token'),
                 tokenType: pickAuthObj('token_type'),
@@ -41,11 +39,16 @@ class LoginPage extends React.Component {
                 scope: pickAuthObj("scope"),
                 stateToken: pickAuthObj("stateToken"),
                 submitted: true
-            });
-            loginActions.login(this.state).call(null, this.props.dispatch);
+            }).call(null, this.props.dispatch);
         }.bind(this);
         Kakao.Auth.login({
-            success: success,
+            success: _.compose(success, (authObj) => {
+                const vars = true;
+                this.props.dispatch({
+                    type: "TOGGLE_SPINNER", vars
+                });
+                return authObj;
+            }).bind(this),
             fail: function(err) {
                 alert(JSON.stringify(err));
             }
@@ -53,6 +56,8 @@ class LoginPage extends React.Component {
     }
     render() {
         return (
+            <div>
+                <FundSpinner/>
                 <div className="d-flex flex-column justify-content-center" id="login-box">
                     <div className="login-box-header">
                         <h4 style={{
@@ -96,14 +101,11 @@ class LoginPage extends React.Component {
                             <p style={{marginBottom: 0}}>계정이 없습니까?<a href="#" id="register-link">회원가입!</a></p>
                         </div>
                     </div>
-
                 </div>
+
+            </div>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return state.authentication;
-}
-const connectedLoginPage = connect(mapStateToProps)(LoginPage);
-export default connectedLoginPage;
+export default LoginPage;

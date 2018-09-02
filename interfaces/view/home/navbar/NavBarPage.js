@@ -1,7 +1,7 @@
 import React from "react";
 import connect from "react-redux/es/connect/connect";
 import loginActions from '../../../actions/login/loginActions';
-import { updateProfileImage } from '../../../actions/user/userActions';
+import {updateProfileImage} from '../../../actions/user/userActions';
 import ui from 'redux-ui';
 import PropTypes from 'prop-types';
 
@@ -16,6 +16,8 @@ let log = console.log;
         switch(action.type) {
             case "UPDATE_PROFILE_IMAGE":
                 return state.set("userProfile", action.userProfile);
+            default:
+                return state;
         }
         return state;
     }
@@ -43,6 +45,7 @@ class NavBarPage extends React.Component {
     }
 
     render() {
+        log(this.props.ui.userProfile.thumbnailImage);
         return (
                 <nav className="navbar navbar-light navbar-expand-md custom-header">
                     <div className="container-fluid"><a className="navbar-brand" href="/"><span style={{fontFamily: '"News Cycle", sans-serif', color: 'rgb(253,250,254)'}}>연세대학교 소액기부</span></a>

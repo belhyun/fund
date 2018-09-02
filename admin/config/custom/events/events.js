@@ -31,7 +31,7 @@ exports.postSave = function (req, res, args, next) {
     const fileType = require('file-type');
     const mysql = require('mysql');
 
-    if (args.name == 'fund_card_photo') {
+    if (args.name == 'fund_card_photo' && args.action == 'insert') {
 
         let fname = args.data.view.fund_card_photo.records[0].columns.name;
         let fpath = path.join(args.upath, fname);
@@ -39,8 +39,8 @@ exports.postSave = function (req, res, args, next) {
         let data = fs.readFileSync(fpath);
         aws.config.region = 'ap-northeast-2'; //Seoul
         aws.config.update({
-            accessKeyId: "AKIAIYS42IXDZWW5EVWQ",
-            secretAccessKey: "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"
+            accessKeyId: "AKIAI7PAUTPPUMOTRL7A",
+            secretAccessKey: "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"
         });
         let s3_params = {
             Bucket: 'belhyun-fund',
@@ -56,6 +56,8 @@ exports.postSave = function (req, res, args, next) {
             //let record = args.data.view.fund_card_photo.records[0].columns;
             //record.image_url = data.Location;
             //console.log(data.Location);
+            console.log(err);
+            console.log(data);
             var connection = mysql.createConnection({
                 host     : 'localhost',
                 user     : 'root',
@@ -76,8 +78,10 @@ exports.postSave = function (req, res, args, next) {
             });
 
             connection.end();//접속이 끊긴다.
+            next();
         });
     }
+    next();
 
     // if (args.debug) console.log('postSave');
     // debugger;
@@ -102,7 +106,6 @@ exports.postSave = function (req, res, args, next) {
     //     else next();
     // }
     // else next();
-    next();
 }
 
 
