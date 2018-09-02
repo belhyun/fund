@@ -48,7 +48,7 @@ class NavBarPage extends React.Component {
         log(this.props.ui.userProfile.thumbnailImage);
         return (
                 <nav className="navbar navbar-light navbar-expand-md custom-header">
-                    <div className="container-fluid"><a className="navbar-brand" href="/"><span style={{fontFamily: '"News Cycle", sans-serif', color: 'rgb(253,250,254)'}}>연세대학교 소액기부</span></a>
+                    <div className="container-fluid"><a className="navbar-brand" href="/"><span style={{fontFamily: '"News Cycle", sans-serif', color: 'rgb(253,250,254)'}}>카카오톡 소액기부</span></a>
                         <button className="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse"><span className="sr-only">Toggle navigation</span><span className="navbar-toggler-icon" /></button>
                         <div className="collapse navbar-collapse" id="navbar-collapse">
                             <ul className="nav navbar-nav links">

@@ -5,7 +5,7 @@ import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 
 @ui({
     state: {
-        modal: false
+        modal: true
     },
     reducer: (state, action) => {
         switch (action.type) {
@@ -37,15 +37,14 @@ class FundModal extends React.Component {
         return (
                 <div>
                     <div>
-                        <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
                         <Modal isOpen={this.props.ui.modal} toggle={this.toggle} className={this.props.className}>
-                            <ModalHeader toggle={this.toggle} charcode="Y">Modal title</ModalHeader>
+                            <ModalHeader toggle={this.toggle} charcode="Y">공지사항</ModalHeader>
                             <ModalBody>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                한국여성의전화를 후원해 주신 모든 분께 진심으로 감사드리며 2017년 기부영수증 발급 안내드립니다.
                             </ModalBody>
                             <ModalFooter>
-                                <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                <Button color="primary" onClick={this.toggle}>확인</Button>{' '}
+                                <Button color="secondary" onClick={this.toggle}>취소</Button>
                             </ModalFooter>
                         </Modal>
                     </div>
