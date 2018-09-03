@@ -1,7 +1,13 @@
 package com.yonsei.fund.model.fund.repository.fundcard;
 
+import com.querydsl.jpa.JPQLQuery;
+import com.yonsei.fund.controller.fundcard.FundCardCondition;
 import com.yonsei.fund.model.fund.entity.FundCard;
+import com.yonsei.fund.model.fund.entity.QFundCard;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class FundCardRepositoryImpl extends QuerydslRepositorySupport implements FundCardRepositoryCustom {
 
@@ -9,4 +15,14 @@ public class FundCardRepositoryImpl extends QuerydslRepositorySupport implements
         super(FundCard.class);
     }
 
+    private final QFundCard qFundCard = QFundCard.fundCard;
+
+
+    @Override
+    public List<FundCard> getFundCardList(FundCardCondition condition) {
+        JPQLQuery<FundCard> query = from(qFundCard)
+                .where(qFundCard.startedAt.loe(LocalDateTime.now()))
+                .where(qFundCard.endedAt.goe(LocalDateTime.now()));
+        return query.fetch();
+    }
 }

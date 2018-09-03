@@ -1,8 +1,15 @@
 {
-  "presets": ["react", "env"],
+  "presets": ["react", "env", "es2015", "stage-2"],
   "env": {
     "development" : {
       "compact": false
-    }
-  }
+    },
+    "plugins": [
+      ["emotion", {
+        "sourceMap": true,
+        "autoLabel": true,
+      }]
+    ]
+  },
+  "plugins": ["emotion", "babel-plugin-transform-decorators-legacy"]
 }

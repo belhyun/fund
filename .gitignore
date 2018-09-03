@@ -31,3 +31,4 @@ data
 src/main/java/generated
 package-lock.json
 interfaces/bundle
+admin/node_modules

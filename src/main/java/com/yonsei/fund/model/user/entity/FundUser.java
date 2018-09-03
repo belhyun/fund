@@ -6,6 +6,7 @@ import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
 import com.yonsei.fund.model.fund.entity.FundCard;
 import com.yonsei.fund.model.fund.entity.FundCardComment;
 import com.yonsei.fund.model.fund.entity.FundCardDonation;
+import com.yonsei.fund.util.rest.FundRestDtoMaker;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -20,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false, of = { "id" })
 @Data
-public class FundUser extends FundAbstractTimestampEntity {
+public class FundUser extends FundAbstractTimestampEntity implements FundRestDtoMaker<FundLoginDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,14 +1,18 @@
 package com.yonsei.fund.model.fund.entity;
 
 import com.google.common.collect.Lists;
+import com.yonsei.fund.controller.fundcard.dto.FundCardDto;
 import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
 import com.yonsei.fund.model.user.entity.FundUser;
+import com.yonsei.fund.util.rest.FundRestDtoMaker;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 
 @Entity
@@ -19,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false, of = { "id" })
 @Data
-public class FundCard extends FundAbstractTimestampEntity {
+public class FundCard extends FundAbstractTimestampEntity implements FundRestDtoMaker<FundCardDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,4 +91,12 @@ public class FundCard extends FundAbstractTimestampEntity {
         this.fundCardComments.add(comment);
     }
 
+    @Override
+    public FundCardDto makeDto() {
+        return FundCardDto.builder()
+                .startedAt(startedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
+                .endedAt(endedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
+                .contents(contents)
+                .title(title).build();
+    }
 }
