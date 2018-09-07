@@ -28,8 +28,8 @@
     "history": "^4.7.2",
     "html-webpack-plugin": "^3.0.7",
     "isomorphic-fetch": "^2.2.1",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
@@ -56,7 +56,8 @@
     "chart.js": "^2.7.2",
     "react-spinners": "^0.4.5",
     "react-emotion": "^9.2.8",
-    "partial-js": "^1.1.6"
+    "partial-js": "^1.1.6",
+    "react-stack-grid": "^0.7.1"
   },
   "devDependencies": {
     "webpack": "^4.16.4",

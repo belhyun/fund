@@ -53,7 +53,8 @@ function preLogin() {
                 loggingIn: true,
                 authObj: localStorageHandler.getItem(loginConstants.LOGIN_KEY).authObj
             } : loginConstants.EMPTY_FUND_OBJ;
-    history.push(authObj.loggingIn? "/" : "/login");
+    //history.push(authObj.loggingIn? "/" : "/login");
+    history.push("/");
     return {
         loggingIn: authObj.loggingIn,
         authObj: authObj.authObj
