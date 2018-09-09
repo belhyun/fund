@@ -17,7 +17,7 @@ public class FundCardServiceImpl implements FundCardService {
     private FundCardRepository fundCardRepository;
 
     @Override
-    public List<FundRestResponse<FundCardDto>> getFundCardList(FundCardCondition condition) {
+    public FundRestResponse<List<FundCardDto>> getFundCardList(FundCardCondition condition) {
 
         return FundRestResponseFactory.getInstance().success(fundCardRepository.getFundCardList(condition),
                 FundCardRestResponseCode.SUCCESS);

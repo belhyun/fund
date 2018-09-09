@@ -4,6 +4,8 @@ package com.yonsei.fund.controller.fundcard.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class FundCardDto {
@@ -17,5 +19,7 @@ public class FundCardDto {
     private String startedAt;
 
     private String endedAt;
+
+    private List<String> images;
 
 }

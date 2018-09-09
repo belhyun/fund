@@ -22,7 +22,7 @@ public class FundCardController extends FundAPIController {
 
     @ResponseBody
     @GetMapping(value = "/card-list")
-    public List<FundRestResponse<FundCardDto>> list(FundCardCondition condition) {
+    public FundRestResponse<List<FundCardDto>> list(FundCardCondition condition) {
         return fundCardService.getFundCardList(condition);
     }
 

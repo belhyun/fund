@@ -25,7 +25,7 @@ function login(authObj) {
         const mergedAuthAndUserProfile = Object.assign(authObj, userProfile);
         const omitFromMergedAuthAndUserProfile = _.partial(_.omit, mergedAuthAndUserProfile);
         http.post("/login", {}, omitFromMergedAuthAndUserProfile("userProfile"))
-            .then(handleResponse)
+            .then(http.handleResponse)
             .then(resp => {
                 return Promise.resolve(_.negate(_.isUndefined)(resp['respCode']) && _.isEqual(resp['respCode'], "LOGIN_SUCCESS") && resp);
             })
@@ -53,23 +53,11 @@ function preLogin() {
                 loggingIn: true,
                 authObj: localStorageHandler.getItem(loginConstants.LOGIN_KEY).authObj
             } : loginConstants.EMPTY_FUND_OBJ;
-    //history.push(authObj.loggingIn? "/" : "/login");
-    history.push("/");
+    history.push(authObj.loggingIn? "/" : "/login");
     return {
         loggingIn: authObj.loggingIn,
         authObj: authObj.authObj
     }
-}
-
-function handleResponse(response) {
-    if (!response) {
-        if (response.status === 401) {
-            location.reload(true);
-        }
-        const error = response.statusText;
-        return Promise.reject(error);
-    }
-    return response.data;
 }
 
 export default loginService;

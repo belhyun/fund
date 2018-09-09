@@ -9,7 +9,7 @@ const loginActions = {
 };
 
 function preLogin(authObj) {
-    let res = loginServices.preLogin();
+    const res = loginServices.preLogin();
     if (res.loggingIn) {
         let authObj = _.pick(res, 'authObj');
         return util.dispatcher({

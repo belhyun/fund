@@ -90,7 +90,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             _: 'underscore',
             _s: 'underscore.string',
-            _p: 'partial-js',
+            __: 'partial-js',
             Modernizr: "modernizr"
         })//,
         //new RemoveStrictPlugin()

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -70,7 +71,7 @@ public class FundCard extends FundAbstractTimestampEntity implements FundRestDto
     /**
      * 펀드카드 사진
      */
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             mappedBy = "fundCard")
     private List<FundCardPhoto> fundCardPhotos = Lists.newArrayList();
@@ -97,6 +98,7 @@ public class FundCard extends FundAbstractTimestampEntity implements FundRestDto
                 .startedAt(startedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .endedAt(endedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .contents(contents)
+                .images(fundCardPhotos.stream().map(FundCardPhoto::getImageUrl).collect(Collectors.toList()))
                 .title(title).build();
     }
 }

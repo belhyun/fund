@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface FundCardService {
 
-    List<FundRestResponse<FundCardDto>> getFundCardList(FundCardCondition condition);
+    FundRestResponse<List<FundCardDto>> getFundCardList(FundCardCondition condition);
 
 }

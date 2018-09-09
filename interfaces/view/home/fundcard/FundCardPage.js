@@ -1,15 +1,30 @@
 import React from "react";
 import StackGrid from "react-stack-grid";
 
+import ui from 'redux-ui';
+import connect from "react-redux/es/connect/connect";
+import fundCardActions from "../../../actions/fundCard/fundCardActions";
+
+@connect(state => ({
+    fundCard: state.fundCard
+}))
+
 export default class FundCardPage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            fundCards: []
+        }
+        fundCardActions.getFundCards(this.state)(this.props.dispatch);
+
+
     }
 
     render() {
         return (
+            <div style={{marginTop: 20}}>
                     <StackGrid columnWidth={250}>
-                        <div>
+                        <div style={{top: 20}}>
                             <figure className="snip1527">
                                 <div className="image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" alt="pr-sample23" /></div>
                                 <figcaption>
@@ -108,6 +123,7 @@ export default class FundCardPage extends React.Component {
                             </figure>
                         </div>
                     </StackGrid>
+            </div>
         );
     }
 }

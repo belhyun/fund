@@ -37,51 +37,53 @@ exports.postSave = function (req, res, args, next) {
         let fpath = path.join(args.upath, fname);
 
         let data = fs.readFileSync(fpath);
-        aws.config.region = 'ap-northeast-2'; //Seoul
-        aws.config.update({
-            accessKeyId: "AKIAI7PAUTPPUMOTRL7A",
-            secretAccessKey: "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"
+        // aws.config.region = 'ap-northeast-2'; //Seoul
+        // aws.config.update({
+        //     accessKeyId: "AKIAI7PAUTPPUMOTRL7A",
+        //     secretAccessKey: "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"
+        // });
+        // let s3_params = {
+        //     Bucket: 'belhyun-fund',
+        //     Key: fname,
+        //     ACL: 'public-read',
+        //     ContentType: fileType(data)['mime']
+        // };
+
+        // let s3obj = new aws.S3({ params: s3_params });
+        // s3obj.upload({ Body: data }).
+        // on('httpUploadProgress', function (evt) { console.log(evt); }).
+        // send(function (err, data) {
+        //     //let record = args.data.view.fund_card_photo.records[0].columns;
+        //     //record.image_url = data.Location;
+        //     //console.log(data.Location);
+        //     console.log(err);
+        //     console.log(data);
+        var connection = mysql.createConnection({
+            host     : 'localhost',
+            user     : 'root',
+            password : 'fund',
+            database : 'fund'
         });
-        let s3_params = {
-            Bucket: 'belhyun-fund',
-            Key: fname,
-            ACL: 'public-read',
-            ContentType: fileType(data)['mime']
-        };
 
-        let s3obj = new aws.S3({ params: s3_params });
-        s3obj.upload({ Body: data }).
-        on('httpUploadProgress', function (evt) { console.log(evt); }).
-        send(function (err, data) {
-            //let record = args.data.view.fund_card_photo.records[0].columns;
-            //record.image_url = data.Location;
-            //console.log(data.Location);
-            console.log(err);
-            console.log(data);
-            var connection = mysql.createConnection({
-                host     : 'localhost',
-                user     : 'root',
-                password : 'fund',
-                database : 'fund'
-            });
+        connection.connect();
 
-            connection.connect();
+        // console.log(args.data.view.fund_card_photo.records[0]);
 
-            console.log(args.data.view.fund_card_photo.records[0]);
-
-            let sql = "UPDATE fund_card_photo SET image_url = " + "'" + data.Location + "' WHERE id= " +
-                    args.data.view.fund_card_photo.records[0].pk[0];
-            connection.query(sql, function (err, rows, fields) {
-                if (err) console.log(err);
-                // console.log('rows', rows); //row는 배열이다.
-                // console.log('fields', fields); //fields는 컬럼을 의미한다.
-            });
-
-            connection.end();//접속이 끊긴다.
-            next();
+        let sql = "UPDATE fund_card_photo SET image_url = " + "'" + fpath + "' WHERE id= " +
+            args.data.view.fund_card_photo.records[0].pk[0];
+        connection.query(sql, function (err, rows, fields) {
+            if (err) console.log(err);
+            // console.log('rows', rows); //row는 배열이다.
+            // console.log('fields', fields); //fields는 컬럼을 의미한다.
         });
+
+        connection.end();//접속이 끊긴다.
+        next();
+        // });
+    } else {
+        next();
     }
-    next();
+    //next();
 
     // if (args.debug) console.log('postSave');
     // debugger;

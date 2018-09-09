@@ -24,12 +24,13 @@ public class FundRestResponseFactory<T> {
         );
     }
 
-    public List<FundRestResponse<T>> success(List<FundRestDtoMaker<T>> from, FundRestResponseCode code) {
+    public FundRestResponse<List<T>> success(List<FundRestDtoMaker<T>> from, FundRestResponseCode code) {
 
-        return from.stream().map((in) -> FundRestResponse.make(
+
+        return FundRestResponse.make(
                 code.getMessage(),
                 code,
-                in.makeDto()
-        )).collect(Collectors.toList());
+                from.stream().map((in) -> in.makeDto()).collect(Collectors.toList()));
+
     }
 }
