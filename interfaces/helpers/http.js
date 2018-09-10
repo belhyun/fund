@@ -73,11 +73,8 @@ function checkResponse(resp, code) {
             __.partial(__.isEqual(code))
         ),
         function() {
-
-            console.log(Array.prototype.slice.call(arguments));
-            
+            return __.toArray(arguments);
         },
-        Array.prototype.slice,
         __.every);
 
 

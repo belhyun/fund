@@ -15,12 +15,17 @@ export default class FundCardPage extends React.Component {
         this.state = {
             fundCards: []
         }
-        fundCardActions.getFundCards(this.state)(this.props.dispatch);
+        const _this = this;
+        fundCardActions.getFundCards(this.state).then(function(func) {
+            func(_this.props.dispatch);
+        });
+    }
 
-
+    componentDidMount() {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div style={{marginTop: 20}}>
                     <StackGrid columnWidth={250}>

@@ -10,7 +10,7 @@ export function fundCard(state = initialState, action) {
     switch(action.type) {
         case fundCardConstants.GET_FUND_CARDS:
             return {
-                fundCards: []
+                fundCards: action.fundCards
             }
         default:
             return state;

@@ -9,14 +9,15 @@ const fundCardServices = {
 
 function getFundCards() {
 
-    return http.get("/card-list")
+    return  http.get("/card-list")
         .then(http.handleResponse)
         //.then(__.partial(http.checkResponse, _, "SUCCESS"))
         .then(function(resp) {
             return http.checkResponse(resp, "SUCCESS");
         })
-        .then(__.val('body'))
+        .then(__.v('body'))
         .catch(log);
+
 
 }
 

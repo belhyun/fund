@@ -11,13 +11,11 @@ const fundCardActions = {
 
 function getFundCards() {
 
-    const fundCards = fundCardServices.getFundCards();
-
-    return util.dispatcher({
-        type: fundCardConstants.GET_FUND_CARDS, fundCards: fundCards
+    return fundCardServices.getFundCards().then(function(fundCards) {
+        return util.dispatcher({
+            type: fundCardConstants.GET_FUND_CARDS, fundCards: fundCards
+        });
     });
-
-
 }
 
 export default fundCardActions;
