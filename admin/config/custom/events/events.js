@@ -39,8 +39,8 @@ exports.postSave = function (req, res, args, next) {
         let data = fs.readFileSync(fpath);
         // aws.config.region = 'ap-northeast-2'; //Seoul
         // aws.config.update({
-        //     accessKeyId: "AKIAI7PAUTPPUMOTRL7A",
-        //     secretAccessKey: "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"
+        //     accessKeyId: "",
+        //     secretAccessKey: ""
         // });
         // let s3_params = {
         //     Bucket: 'belhyun-fund',
