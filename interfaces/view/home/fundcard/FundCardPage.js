@@ -4,6 +4,8 @@ import StackGrid from "react-stack-grid";
 import ui from 'redux-ui';
 import connect from "react-redux/es/connect/connect";
 import fundCardActions from "../../../actions/fundCard/fundCardActions";
+import Render from 'react-x-render';
+import moment from 'moment';
 
 @connect(state => ({
     fundCard: state.fundCard
@@ -24,110 +26,53 @@ export default class FundCardPage extends React.Component {
     componentDidMount() {
     }
 
+    getMonthOrDay(type, endedAtStr) {
+
+        const endedAt = moment(endedAtStr).locale("ko");
+
+        if (_.isEqual(type, "D")) {
+            return endedAt.date();
+        }
+        return endedAt.format("MMMM");
+
+    }
+
+
+    getFundCards() {
+        const fundCards = this.props.fundCard.fundCards;
+        return (
+            <StackGrid columnWidth={250}>
+                {fundCards.map((fundCard) =>
+                    <div style={{top: 20}}>
+                        <figure className="snip1527">
+                            <div className="image">
+                                {fundCard.photoDtos.map((image) =>
+                                    <Render if={image.main}>
+                                        <img src={image.imageUrl} alt="pr-sample23" />
+                                    </Render>
+
+                                )}
+                            </div>
+                            <figcaption>
+
+                                <div className="date"><span className="day">{this.getMonthOrDay('M', fundCard.endedAt)}</span><span className="month">{this.getMonthOrDay('D', fundCard.endedAt)}</span></div>
+                                <h3>{fundCard.title}</h3>
+                                <p>
+                                    {fundCard.contents}
+                                </p>
+                            </figcaption>
+                            <a href="/fundCardDetail/1" />
+                        </figure>
+                    </div>
+                )};
+            </StackGrid>
+        );
+    }
+
     render() {
-        console.log(this.props);
         return (
             <div style={{marginTop: 20}}>
-                    <StackGrid columnWidth={250}>
-                        <div style={{top: 20}}>
-                            <figure className="snip1527">
-                                <div className="image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" alt="pr-sample23" /></div>
-                                <figcaption>
-                                    <div className="date"><span className="day">28</span><span className="month">Oct</span></div>
-                                    <h3>기부하기</h3>
-                                    <p>
-                                        한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'.
-                                        그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?
-                                    </p>
-                                </figcaption>
-                                <a href="/fundCardDetail/1" />
-                            </figure>
-                        </div>
-                        <div>
-                            <figure className="snip1527">
-                                <div className="image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" alt="pr-sample24" /></div>
-                                <figcaption>
-                                    <div className="date"><span className="day">17</span><span className="month">Nov</span></div>
-                                    <h3>기부하기</h3>
-                                    <p>
-                                        한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'.
-                                        그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?
-                                    </p>
-                                </figcaption>
-                                <a href="#" />
-                            </figure>
-                        </div>
-                        <div>
-                            <figure className="snip1527">
-                                <div className="image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" alt="pr-sample25" /></div>
-                                <figcaption>
-                                    <div className="date"><span className="day">01</span><span className="month">Dec</span></div>
-                                    <h3>기부하기</h3>
-                                    <p>
-                                        한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'.
-                                        그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?
-                                    </p>
-                                </figcaption>
-                                <a href="#" />
-                            </figure>
-                        </div>
-                        <div>
-                            <figure className="snip1527">
-                                <div className="image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" alt="pr-sample25" /></div>
-                                <figcaption>
-                                    <div className="date"><span className="day">01</span><span className="month">Dec</span></div>
-                                    <h3>기부하기</h3>
-                                    <p>
-                                        한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'.
-                                        그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?
-                                    </p>
-                                </figcaption>
-                                <a href="#" />
-                            </figure>
-                        </div>
-                        <div>
-                            <figure className="snip1527">
-                                <div className="image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" alt="pr-sample25" /></div>
-                                <figcaption>
-                                    <div className="date"><span className="day">01</span><span className="month">Dec</span></div>
-                                    <h3>기부하기</h3>
-                                    <p>
-                                        한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'.
-                                        그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?
-                                    </p>
-                                </figcaption>
-                                <a href="#" />
-                            </figure>
-                        </div>
-                        <div>
-                            <figure className="snip1527">
-                                <div className="image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" alt="pr-sample25" /></div>
-                                <figcaption>
-                                    <div className="date"><span className="day">01</span><span className="month">Dec</span></div>
-                                    <h3>기부하기</h3>
-                                    <p>
-                                        한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'.
-                                        그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?
-                                    </p>
-                                </figcaption>
-                                <a href="#" />
-                            </figure>
-                        </div>
-                        <div>
-                            <figure className="snip1527">
-                                <div className="image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" alt="pr-sample25" /></div>
-                                <figcaption>
-                                    <div className="date"><span className="day">01</span><span className="month">Dec</span></div>
-                                    <h3>기부하기</h3>
-                                    <p>
-                                        한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'.
-                                        그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?
-                                    </p>
-                                </figcaption>
-                                <a href="#" />
-                            </figure>
-                        </div>
-                    </StackGrid>
+                {this.getFundCards()}
             </div>
         );
     }

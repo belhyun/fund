@@ -98,7 +98,7 @@ public class FundCard extends FundAbstractTimestampEntity implements FundRestDto
                 .startedAt(startedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .endedAt(endedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .contents(contents)
-                .images(fundCardPhotos.stream().map(FundCardPhoto::getImageUrl).collect(Collectors.toList()))
+                .photoDtos(fundCardPhotos.stream().map(FundCardPhoto::makeDto).collect(Collectors.toList()))
                 .title(title).build();
     }
 }

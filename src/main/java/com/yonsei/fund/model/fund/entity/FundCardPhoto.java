@@ -1,6 +1,7 @@
 package com.yonsei.fund.model.fund.entity;
 
 
+import com.yonsei.fund.controller.fundcard.dto.FundCardPhotoDto;
 import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -32,5 +33,12 @@ public class FundCardPhoto extends FundAbstractTimestampEntity {
 
     @Column
     private String imageUrl;
+
+    public FundCardPhotoDto makeDto() {
+
+        return FundCardPhotoDto.builder()
+                .imageUrl(this.imageUrl)
+                .isMain(this.isMain).build();
+    }
 
 }

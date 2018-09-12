@@ -11,7 +11,7 @@ const fundCardActions = {
 
 function getFundCards() {
 
-    return fundCardServices.getFundCards().then(function(fundCards) {
+    return fundCardServices.getFundCards().then(fundCards => {
         return util.dispatcher({
             type: fundCardConstants.GET_FUND_CARDS, fundCards: fundCards
         });

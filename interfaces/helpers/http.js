@@ -72,9 +72,7 @@ function checkResponse(resp, code) {
             __.negate(_.isUndefined),
             __.partial(__.isEqual(code))
         ),
-        function() {
-            return __.toArray(arguments);
-        },
+        __.args,
         __.every);
 
 

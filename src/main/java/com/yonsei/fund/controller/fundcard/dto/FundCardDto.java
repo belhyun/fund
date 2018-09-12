@@ -20,6 +20,6 @@ public class FundCardDto {
 
     private String endedAt;
 
-    private List<String> images;
+    private List<FundCardPhotoDto> photoDtos;
 
 }

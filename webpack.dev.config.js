@@ -92,7 +92,8 @@ module.exports = {
             _s: 'underscore.string',
             __: 'partial-js',
             Modernizr: "modernizr"
-        })//,
+        }),//,
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko/),
         //new RemoveStrictPlugin()
         //,
         //new UglifyJsPlugin()

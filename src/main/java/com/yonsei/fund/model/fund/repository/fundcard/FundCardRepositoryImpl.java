@@ -7,7 +7,6 @@ import com.yonsei.fund.model.fund.entity.QFundCard;
 import com.yonsei.fund.model.fund.entity.QFundCardPhoto;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class FundCardRepositoryImpl extends QuerydslRepositorySupport implements FundCardRepositoryCustom {
@@ -24,8 +23,8 @@ public class FundCardRepositoryImpl extends QuerydslRepositorySupport implements
     @Override
     public List<FundCard> getFundCardList(FundCardCondition condition) {
         JPQLQuery<FundCard> query = from(qFundCard).innerJoin(qFundCard.fundCardPhotos, qFundCardPhoto)
-                .where(qFundCard.startedAt.loe(LocalDateTime.now()))
-                .where(qFundCard.endedAt.goe(LocalDateTime.now()))
+                //.where(qFundCard.startedAt.loe(LocalDateTime.now()))
+                //.where(qFundCard.endedAt.goe(LocalDateTime.now()))
                 .orderBy(qFundCard.id.desc());
         return query.fetch();
     }
