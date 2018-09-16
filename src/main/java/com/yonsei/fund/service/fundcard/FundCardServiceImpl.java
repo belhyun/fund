@@ -1,6 +1,7 @@
 package com.yonsei.fund.service.fundcard;
 
 import com.yonsei.fund.controller.fundcard.FundCardCondition;
+import com.yonsei.fund.controller.fundcard.dto.FundCardDetailDto;
 import com.yonsei.fund.controller.fundcard.dto.FundCardDto;
 import com.yonsei.fund.model.fund.repository.fundcard.FundCardRepository;
 import com.yonsei.fund.util.rest.FundRestResponse;
@@ -21,6 +22,15 @@ public class FundCardServiceImpl implements FundCardService {
 
         return FundRestResponseFactory.getInstance().success(fundCardRepository.getFundCardList(condition),
                 FundCardRestResponseCode.SUCCESS);
+
+    }
+
+    @Override
+    public FundRestResponse<FundCardDetailDto> getFundCardDetail(FundCardCondition condition) {
+
+        return FundRestResponseFactory.getInstance().success(fundCardRepository.getFundCard(condition),
+                FundCardRestResponseCode.SUCCESS);
+
 
     }
 }

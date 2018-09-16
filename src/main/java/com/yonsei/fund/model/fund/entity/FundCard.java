@@ -95,10 +95,12 @@ public class FundCard extends FundAbstractTimestampEntity implements FundRestDto
     @Override
     public FundCardDto makeDto() {
         return FundCardDto.builder()
+                .fundCardId(id.intValue())
                 .startedAt(startedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .endedAt(endedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .contents(contents)
                 .photoDtos(fundCardPhotos.stream().map(FundCardPhoto::makeDto).collect(Collectors.toList()))
+                .commentDtos(fundCardComments.stream().map(FundCardComment::makeDto).collect(Collectors.toList()))
                 .title(title).build();
     }
 }

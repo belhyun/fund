@@ -10,6 +10,8 @@ import java.util.List;
 @Builder
 public class FundCardDto {
 
+    private int fundCardId;
+
     private String title;
 
     private String contents;
@@ -21,5 +23,7 @@ public class FundCardDto {
     private String endedAt;
 
     private List<FundCardPhotoDto> photoDtos;
+
+    private List<FundCardCommentDto> commentDtos;
 
 }

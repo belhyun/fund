@@ -12,6 +12,10 @@ export function fundCard(state = initialState, action) {
             return {
                 fundCards: action.fundCards
             }
+        case fundCardConstants.GET_FUND_CARD:
+            return {
+                fundCard: action.fundCard
+            }
         default:
             return state;
     }

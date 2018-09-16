@@ -5,6 +5,7 @@ import {updateProfileImage} from '../../../actions/user/userActions';
 import ui from 'redux-ui';
 import PropTypes from 'prop-types';
 
+
 let log = console.log;
 @ui({
     state: {
@@ -30,6 +31,7 @@ class NavBarPage extends React.Component {
         super(props);
 
         this.logout= this.logout.bind(this);
+
     }
     componentDidMount() {
         if (this.props.authentication.loggingIn) {
@@ -38,6 +40,18 @@ class NavBarPage extends React.Component {
 
             _.isFunction(action) && action(this.props.dispatch);
         }
+    }
+
+    componentDidUpdate() {
+        // console.log("componentDidUpdate");
+        // console.log(this.props.authentication.loggingIn);
+        // if (this.props.authentication.loggingIn) {
+        //
+        //     const action = updateProfileImage(this.props.ui);
+        //
+        //     _.isFunction(action) && action(this.props.dispatch);
+        // }
+
     }
 
     logout() {

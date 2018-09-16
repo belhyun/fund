@@ -12,7 +12,6 @@ import React from "react";
             case 'TOGGLE_SPINNER':
                 return state.set("loading", action.vars);
             case '@@redux-ui/UNMOUNT_UI_STATE':
-                console.log(state);
                 return state;
         }
         return state;

@@ -3,21 +3,24 @@ import http from '../../helpers/http';
 
 const log = console.log;
 
-const fundCardServices = {
-    getFundCards: getFundCards
-}
-
-function getFundCards() {
-
-    return  http.get("/card-list")
+const extractBody = function(url) {
+    return  http.get(url)
         .then(http.handleResponse)
-        //.then(__.partial(http.checkResponse, _, "SUCCESS"))
         .then(function(resp) {
             return http.checkResponse(resp, "SUCCESS");
         })
         .then(__.v('body'))
         .catch(log);
 
+};
+
+const fundCardServices = {
+    getFundCards: function(){
+        return extractBody("/card-list");
+    },
+    getFundCard: function(id) {
+        return extractBody("/card-detail/" + id);
+    }
 
 }
 

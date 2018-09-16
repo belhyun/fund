@@ -1,47 +1,32 @@
 import React from "react";
 
 import NavBarPage from "../navbar/NavBarPage";
-import {HorizontalBar} from 'react-chartjs-2';
+import FundHorizontalBarPage from "./FundHorizontalBarPage";
+import connect from "react-redux/es/connect/connect";
+import loginActions from '../../../actions/login/loginActions';
+import fundCardActions from '../../../actions/fundCard/fundCardActions';
 
 
-const data = {
-    labels: ['기부금액'],
-    datasets: [
-        {
-            label: '기부현황',
-            backgroundColor: 'rgba(255,99,132,0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1,
-            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-            hoverBorderColor: 'rgba(255,99,132,1)',
-            data: [65],
-            responsive: true
-        }
-    ]
-};
-const chartOptions = {
-    scaleBeginAtZero : true,
-    scaleShowGridLines : true,
-    //Boolean - Whether to show horizontal lines (except X axis)
-    scaleShowHorizontalLines: true,
-
-    //Boolean - Whether to show vertical lines (except Y axis)
-    scaleShowVerticalLines: true,
-
-    //Boolean - If there is a stroke on each bar
-    barShowStroke : true,
-
-    //Number - Pixel width of the bar stroke
-    barStrokeWidth : 2,
-
-    //Number - Spacing between each of the X value sets
-    barValueSpacing : 5
-};
+@connect(state => ({
+    authentication: state.authentication,
+    fundCard: state.fundCard
+}))
 
 export default class FundCardDetailPage extends React.Component {
 
     constructor(props) {
         super(props);
+        const _this = this;
+        __.go(
+            function() {
+                loginActions.preLogin(this.state)(_this.props.dispatch);
+            },
+            function() {
+                fundCardActions.getFundCard(_this.props.match.params.id).then(func => {
+                    func(_this.props.dispatch);
+                });
+            }
+        )
     }
 
     componentWillMount(){
@@ -52,6 +37,7 @@ export default class FundCardDetailPage extends React.Component {
     }
 
     render() {
+        console.log(this.props.fundCard);
         return (
                 <div>
                     <NavBarPage/>
@@ -62,7 +48,7 @@ export default class FundCardDetailPage extends React.Component {
                                 <p>한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'. 그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?</p>
                             </div>
                             <div>
-                                <HorizontalBar data={data} options={chartOptions} width={600} height={100} />
+                                <FundHorizontalBarPage/>
                             </div>
                         </div>
                         <div className="row">

@@ -13,4 +13,6 @@ public class FundCardCondition extends FundCondition {
 
     private int page = 1;
 
+    private int fundCardId;
+
 }

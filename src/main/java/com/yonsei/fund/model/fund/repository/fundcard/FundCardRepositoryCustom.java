@@ -8,4 +8,7 @@ import java.util.List;
 public interface FundCardRepositoryCustom {
 
     List<FundCard> getFundCardList(FundCardCondition condition);
+
+    FundCard getFundCard(FundCardCondition condition);
+
 }

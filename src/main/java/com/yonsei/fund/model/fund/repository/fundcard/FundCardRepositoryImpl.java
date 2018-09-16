@@ -28,4 +28,13 @@ public class FundCardRepositoryImpl extends QuerydslRepositorySupport implements
                 .orderBy(qFundCard.id.desc());
         return query.fetch();
     }
+
+    @Override
+    public FundCard getFundCard(FundCardCondition condition) {
+        JPQLQuery<FundCard> query = from(qFundCard).innerJoin(qFundCard.fundCardPhotos, qFundCardPhoto)
+                //.where(qFundCard.startedAt.loe(LocalDateTime.now()))
+                .where(qFundCard.id.eq(Long.valueOf(condition.getFundCardId())))
+                .orderBy(qFundCard.id.desc());
+        return query.fetchOne();
+    }
 }

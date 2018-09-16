@@ -10,4 +10,6 @@ public interface FundCardService {
 
     FundRestResponse<List<FundCardDto>> getFundCardList(FundCardCondition condition);
 
+
+    FundRestResponse getFundCardDetail(FundCardCondition condition);
 }
