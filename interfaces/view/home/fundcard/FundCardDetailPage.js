@@ -5,28 +5,30 @@ import FundHorizontalBarPage from "./FundHorizontalBarPage";
 import connect from "react-redux/es/connect/connect";
 import loginActions from '../../../actions/login/loginActions';
 import fundCardActions from '../../../actions/fundCard/fundCardActions';
-
+import ui from 'redux-ui';
 
 @connect(state => ({
     authentication: state.authentication,
     fundCard: state.fundCard
 }))
-
+@ui({
+    persist: true
+})
 export default class FundCardDetailPage extends React.Component {
 
     constructor(props) {
         super(props);
         const _this = this;
-        __.go(
-            function() {
-                loginActions.preLogin(this.state)(_this.props.dispatch);
+        __.all(
+            function(dispatcher) {
+                loginActions.preLogin(_this.state)(dispatcher);
             },
-            function() {
+            function(dispatcher) {
                 fundCardActions.getFundCard(_this.props.match.params.id).then(func => {
-                    func(_this.props.dispatch);
+                    func(dispatcher);
                 });
             }
-        )
+        )(this.props.dispatch);
     }
 
     componentWillMount(){
@@ -36,8 +38,14 @@ export default class FundCardDetailPage extends React.Component {
 
     }
 
+    getFundCardForUI(fundCard) {
+
+        console.log(fundCard);
+
+    }
+
     render() {
-        console.log(this.props.fundCard);
+        const fundCard = this.getFundCardForUI(this.props.fundCard.fundCard);
         return (
                 <div>
                     <NavBarPage/>

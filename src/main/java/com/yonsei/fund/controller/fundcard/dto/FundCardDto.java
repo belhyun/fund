@@ -26,4 +26,7 @@ public class FundCardDto {
 
     private List<FundCardCommentDto> commentDtos;
 
+    private List<FundCardDonationDto> donationDtos;
+
+
 }

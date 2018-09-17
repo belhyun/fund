@@ -101,6 +101,7 @@ public class FundCard extends FundAbstractTimestampEntity implements FundRestDto
                 .contents(contents)
                 .photoDtos(fundCardPhotos.stream().map(FundCardPhoto::makeDto).collect(Collectors.toList()))
                 .commentDtos(fundCardComments.stream().map(FundCardComment::makeDto).collect(Collectors.toList()))
+                .donationDtos(fundCardDonations.stream().map(FundCardDonation::makeDto).collect(Collectors.toList()))
                 .title(title).build();
     }
 }

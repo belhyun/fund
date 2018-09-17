@@ -13,6 +13,7 @@ export function fundCard(state = initialState, action) {
                 fundCards: action.fundCards
             }
         case fundCardConstants.GET_FUND_CARD:
+            console.log(state);
             return {
                 fundCard: action.fundCard
             }

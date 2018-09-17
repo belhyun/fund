@@ -1,7 +1,9 @@
 package com.yonsei.fund.model.fund.entity;
 
+import com.yonsei.fund.controller.fundcard.dto.FundCardDonationDto;
 import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
 import com.yonsei.fund.model.user.entity.FundUser;
+import com.yonsei.fund.util.rest.FundRestDtoMaker;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -16,7 +18,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false, of = { "id" })
 @Data
-public class FundCardDonation extends FundAbstractTimestampEntity {
+public class FundCardDonation extends FundAbstractTimestampEntity implements FundRestDtoMaker<FundCardDonationDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +33,10 @@ public class FundCardDonation extends FundAbstractTimestampEntity {
     @Column
     private BigDecimal donationAmount;
 
+    @Override
+    public FundCardDonationDto makeDto() {
+        return FundCardDonationDto.builder()
+                .fundUserId(fundUser.getId())
+                .build();
+    }
 }
