@@ -6,6 +6,7 @@ import connect from "react-redux/es/connect/connect";
 import loginActions from '../../../actions/login/loginActions';
 import fundCardActions from '../../../actions/fundCard/fundCardActions';
 import ui from 'redux-ui';
+import fundCardServices from "../../../services/fundCard/fundCardServices";
 
 @connect(state => ({
     authentication: state.authentication,
@@ -40,7 +41,7 @@ export default class FundCardDetailPage extends React.Component {
 
     getFundCardForUI(fundCard) {
 
-        console.log(fundCard);
+        fundCardServices.getFundCardForUI(fundCard);
 
     }
 

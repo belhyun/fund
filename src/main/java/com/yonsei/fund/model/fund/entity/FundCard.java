@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.yonsei.fund.util.functional.FundCollector.collect;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -41,6 +42,12 @@ public class FundCard extends FundAbstractTimestampEntity implements FundRestDto
      */
     @Column
     private BigDecimal targetAmount;
+
+    /**
+     * 목표인원
+     */
+    @Column
+    private int targetPersonnel;
 
     /**
      * 기부카드 생성자
@@ -99,9 +106,11 @@ public class FundCard extends FundAbstractTimestampEntity implements FundRestDto
                 .startedAt(startedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .endedAt(endedAt.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .contents(contents)
-                .photoDtos(fundCardPhotos.stream().map(FundCardPhoto::makeDto).collect(Collectors.toList()))
-                .commentDtos(fundCardComments.stream().map(FundCardComment::makeDto).collect(Collectors.toList()))
-                .donationDtos(fundCardDonations.stream().map(FundCardDonation::makeDto).collect(Collectors.toList()))
-                .title(title).build();
+                .targetPersonnel(targetPersonnel)
+                .photoDtos(collect(fundCardPhotos, FundCardPhoto::makeDto))
+                .commentDtos(collect(fundCardComments, FundCardComment::makeDto))
+                .donationDtos(collect(fundCardDonations, FundCardDonation::makeDto))
+                .title(title)
+                .build();
     }
 }

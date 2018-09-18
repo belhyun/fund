@@ -1,5 +1,6 @@
 
 import http from '../../helpers/http';
+import moment from 'moment';
 
 const log = console.log;
 
@@ -20,7 +21,21 @@ const fundCardServices = {
     },
     getFundCard: function(id) {
         return extractBody("/card-detail/" + id);
-    }
+    },
+    getFundCardForUI : getFundCardForUI
+
+}
+
+function getFundCardForUI() {
+
+    const args = Array.prototype.slice.call(arguments, 0);
+
+    const fundCard = __.first(args);
+
+    // __.reduce(fundCard.donationDtos
+
+
+
 
 }
 

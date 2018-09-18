@@ -18,6 +18,8 @@ public class FundCardDto {
 
     private String targetAmount;
 
+    private int targetPersonnel;
+
     private String startedAt;
 
     private String endedAt;

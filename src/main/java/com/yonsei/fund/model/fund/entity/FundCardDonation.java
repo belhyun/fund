@@ -9,6 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -37,6 +39,7 @@ public class FundCardDonation extends FundAbstractTimestampEntity implements Fun
     public FundCardDonationDto makeDto() {
         return FundCardDonationDto.builder()
                 .fundUserId(fundUser.getId())
+                .createdAt(getCreated().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .build();
     }
 }
