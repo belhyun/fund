@@ -44,7 +44,7 @@ export default class FundCardPage extends React.Component {
         const fundCards = this.props.fundCard.fundCards;
         return (
             <ImagesLoaded>
-                <StackGrid columnWidth={250} monitorImagesLoaded={true}>
+                <StackGrid columnWidth={'100%'} monitorImagesLoaded={true}>
                     {fundCards.map((fundCard) =>
                         <div style={{top: 20}}>
                             <figure className="snip1527">
