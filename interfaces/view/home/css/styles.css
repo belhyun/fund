@@ -1,5 +1,7 @@
 footer {
-	clear: both;	
+	clear: both;
+	//position:absolute;
+	margin-top:0;
 }
 
 .modal {

@@ -7,6 +7,7 @@ import loginActions from '../../../actions/login/loginActions';
 import fundCardActions from '../../../actions/fundCard/fundCardActions';
 import ui from 'redux-ui';
 import fundCardServices from "../../../services/fundCard/fundCardServices";
+import Render from 'react-x-render';
 
 @connect(state => ({
     authentication: state.authentication,
@@ -41,41 +42,24 @@ export default class FundCardDetailPage extends React.Component {
 
     getFundCardForUI(fundCard) {
 
-        fundCardServices.getFundCardForUI(fundCard);
+        return fundCardServices.getFundCardForUI(fundCard);
 
     }
 
     render() {
         const fundCard = this.getFundCardForUI(this.props.fundCard.fundCard);
+        console.log(fundCard);
         return (
+            <Render unless={_.isUndefined(fundCard)}>
                 <div>
                     <NavBarPage/>
-                    <div className="container">
-                        <div className="jumbotron" style={{marginTop: 15, overflow: 'hidden'}}>
-                            <div>
-                                <h1>저소득층 학생 기부하기</h1>
-                                <p>한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'. 그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?</p>
-                            </div>
-                            <div>
-                                <FundHorizontalBarPage/>
-                            </div>
-                        </div>
+                    <div className="container-fluid">
                         <div className="row">
-                            <div className="col-md-7">
-                                <div className="row">
-                                    <div className="col-md-12"><img className="img-thumbnail img-fluid center-block" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" /></div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-6 col-sm-6 col-md-6"><img className="img-thumbnail img-fluid center-block" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" /></div>
-                                    <div className="col-6 col-sm-6 col-md-6"><img className="img-thumbnail img-fluid center-block" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/pr-sample24.jpg" /></div>
-                                </div>
-                            </div>
                             <div className="col-md-5">
                                 <div style={{marginBottom: 20}}>
-                                    <h1>저소득층 학생 기부하기</h1>
+                                    <h1>{fundCard.title}</h1>
                                     <p>
-                                        한국 사회에서 아주 일상적인 취미생활이 된 '영화 보기'.
-                                        그런데 2017년 흥행 10순위 한국영화 중 '이름이 있는 여성 둘 이상이 모여 남성이 아닌 다른 주제로 이야기를 나누는' 장면이 한 번이라도 나온 영화는 단 2편이라는 사실. 알고 계셨나요?
+                                        {fundCard.contents}
                                     </p>
                                     <h2 className="text-center text-success"><i className="fa fa-dollar" /></h2><button className="btn btn-primary btn-lg center-block" type="button"><i className="fa fa-cart-plus" /> 기부하기</button>
                                 </div>
@@ -124,9 +108,49 @@ export default class FundCardDetailPage extends React.Component {
                                         </ul><button className="btn btn-primary" type="button" style={{}}>댓글 남기기</button></div>
                                 </div>
                             </div>
+                            <div className="col-md-7">
+                                <div className="row">
+                                    {fundCard.photoDtos.map((image) =>
+                                        <Render if={image.main}>
+                                            <div className="col-md-auto"><img className="img-thumbnail img-fluid center-block" src={image.imageUrl} /></div>
+                                        </Render>
+
+                                    )}
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-auto">
+                                        <div id="" className="carousel slide" data-ride="carousel">
+                                            <div className="carousel-inner">
+                                                {fundCard.photoDtos.map((image, index) =>
+                                                    <Render unless={image.main}>
+                                                        <div className="carousel-item active">
+                                                            <img className="d-block w-100" src={image.imageUrl} alt="First slide" />
+                                                        </div>
+                                                    </Render>
+
+                                                )}
+                                            </div>
+                                            <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                                <span className="carousel-control-prev-icon" aria-hidden="true" />
+                                                <span className="sr-only">Previous</span>
+                                            </a>
+                                            <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                <span className="carousel-control-next-icon" aria-hidden="true" />
+                                                <span className="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <FundHorizontalBarPage/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </Render>
         );
     }
 }

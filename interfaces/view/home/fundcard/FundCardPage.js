@@ -42,34 +42,37 @@ export default class FundCardPage extends React.Component {
 
     getFundCards() {
         const fundCards = this.props.fundCard.fundCards;
+
         return (
-            <ImagesLoaded>
-                <StackGrid columnWidth={'100%'} monitorImagesLoaded={true}>
-                    {fundCards.map((fundCard) =>
-                        <div style={{top: 20}}>
-                            <figure className="snip1527">
-                                <div className="image">
-                                    {fundCard.photoDtos.map((image) =>
-                                        <Render if={image.main}>
-                                            <img src={image.imageUrl} alt="pr-sample23" />
-                                        </Render>
+            <Render if={this.props.fundCard.fundCards}>
+                <ImagesLoaded>
+                    <StackGrid columnWidth={250} monitorImagesLoaded={true}>
+                        {fundCards.map((fundCard) =>
+                            <div style={{top: 20}}>
+                                <figure className="snip1527">
+                                    <div className="image">
+                                        {fundCard.photoDtos.map((image) =>
+                                            <Render if={image.main}>
+                                                <img src={image.imageUrl} alt="pr-sample23" />
+                                            </Render>
 
-                                    )}
-                                </div>
-                                <figcaption>
+                                        )}
+                                    </div>
+                                    <figcaption>
 
-                                    <div className="date"><span className="day">{this.getMonthOrDay('M', fundCard.endedAt)}</span><span className="month">{this.getMonthOrDay('D', fundCard.endedAt)}</span></div>
-                                    <h3>{fundCard.title}</h3>
-                                    <p>
-                                        {fundCard.contents}
-                                    </p>
-                                </figcaption>
-                                <a href={"/fundCardDetail/" + fundCard.fundCardId} />
-                            </figure>
-                        </div>
-                    )};
-                </StackGrid>
-            </ImagesLoaded>
+                                        <div className="date"><span className="day">{this.getMonthOrDay('M', fundCard.endedAt)}</span><span className="month">{this.getMonthOrDay('D', fundCard.endedAt)}</span></div>
+                                        <h3>{fundCard.title}</h3>
+                                        <p>
+                                            {fundCard.contents}
+                                        </p>
+                                    </figcaption>
+                                    <a href={"/fundCardDetail/" + fundCard.fundCardId} />
+                                </figure>
+                            </div>
+                        )}
+                    </StackGrid>
+                </ImagesLoaded>
+            </Render>
         );
     }
 

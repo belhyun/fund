@@ -1,6 +1,5 @@
-
 import http from '../../helpers/http';
-import moment from 'moment';
+import fundCardConstants from '../../constants/fundCardConstants';
 
 const log = console.log;
 
@@ -28,15 +27,16 @@ const fundCardServices = {
 
 function getFundCardForUI() {
 
+
     const args = Array.prototype.slice.call(arguments, 0);
 
     const fundCard = __.first(args);
 
-    // __.reduce(fundCard.donationDtos
+    if (_.isUndefined(fundCard)) {
+        return fundCardConstants.DEFAULT_DETAIL_CONTENTS;
+    };
 
-
-
-
+    return fundCard;
 }
 
 export default fundCardServices;
