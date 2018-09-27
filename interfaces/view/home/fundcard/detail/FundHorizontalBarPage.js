@@ -1,7 +1,7 @@
 import React from 'react';
 import {Bar} from 'react-chartjs-2';
 import connect from "react-redux/es/connect/connect";
-import fundCardBarServices from "../../../services/fundCard/fundCardBarServices";
+import fundCardBarServices from "../../../../services/fundCard/fundCardBarServices";
 
 @connect(state => ({
     fundCard: state.fundCard

@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginPage from './view/login/LoginPage';
 import HomePage from './view/home/HomePage';
-import FundCardDetail from './view/home/fundcard/FundCardDetailPage';
+import FundCardDetail from './view/home/fundcard/detail/FundCardDetailPage';
 import FundCard from './view/home/fundcard/FundCardPage';
 import { Container, Row, Col } from 'reactstrap';
 import { Router, Route } from 'react-router-dom';

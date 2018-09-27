@@ -5,6 +5,7 @@ import com.yonsei.fund.controller.fundcard.dto.FundCardPhotoDto;
 import com.yonsei.fund.model.base.FundAbstractTimestampEntity;
 import com.yonsei.fund.util.rest.FundRestDtoMaker;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -37,9 +38,14 @@ public class FundCardPhoto extends FundAbstractTimestampEntity implements FundRe
 
     public FundCardPhotoDto makeDto() {
 
-        return FundCardPhotoDto.builder()
-                .imageUrl(this.imageUrl)
-                .isMain(this.isMain).build();
+
+        FundCardPhotoDto photoDto = FundCardPhotoDto.builder().build();
+
+        BeanUtils.copyProperties(this, photoDto);
+
+
+        return photoDto;
+
     }
 
 }

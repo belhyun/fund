@@ -11,5 +11,9 @@ public class FundCardCommentDto {
 
     private String contents;
 
+    private String profileImage;
+
+    private String thumbnailImage;
+
     private String createdAt;
 }

@@ -29,4 +29,8 @@ public class FundLoginCondition extends FundCondition {
 
     private String nickname;
 
+    private String profileImage;
+
+    private String thumbnailImage;
+
 }

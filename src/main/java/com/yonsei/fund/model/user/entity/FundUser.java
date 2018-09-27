@@ -33,6 +33,12 @@ public class FundUser extends FundAbstractTimestampEntity implements FundRestDto
     @Column
     private String nickname;
 
+    @Column
+    private String profileImage;
+
+    @Column
+    private String thumbnailImage;
+
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "fundUser")
@@ -69,6 +75,8 @@ public class FundUser extends FundAbstractTimestampEntity implements FundRestDto
         fundUser.setKakaoId(condition.getKakaoId());
         fundUser.setNickname(condition.getNickname());
         fundUser.setFundUserAuth(fundUserAuth);
+        fundUser.setProfileImage(condition.getProfileImage());
+        fundUser.setThumbnailImage(condition.getThumbnailImage());
         return fundUser;
     }
 

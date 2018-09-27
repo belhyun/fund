@@ -48,6 +48,8 @@ public class FundCardComment extends FundAbstractTimestampEntity implements Fund
         return FundCardCommentDto.builder()
                 .nickName(fundUser.getNickname())
                 .contents(this.contents)
+                .thumbnailImage(fundUser.getThumbnailImage())
+                .profileImage(fundUser.getProfileImage())
                 .createdAt(getCreated().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))
                 .build();
 

@@ -22,7 +22,7 @@ public class FundCardRepositoryImpl extends QuerydslRepositorySupport implements
 
     @Override
     public List<FundCard> getFundCardList(FundCardCondition condition) {
-        JPQLQuery<FundCard> query = from(qFundCard).innerJoin(qFundCard.fundCardPhotos, qFundCardPhoto)
+        JPQLQuery<FundCard> query = from(qFundCard)
                 //.where(qFundCard.startedAt.loe(LocalDateTime.now()))
                 //.where(qFundCard.endedAt.goe(LocalDateTime.now()))
                 .orderBy(qFundCard.id.desc());

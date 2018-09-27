@@ -1,7 +1,9 @@
+import moment from "moment";
 
 const util = {
     objectToQueryString: objectToQueryString,
-    dispatcher: dispatcher
+    dispatcher: dispatcher,
+    strToMomentObj: strToMomentObj
 };
 
 const objectToQueryString = function() {
@@ -29,5 +31,10 @@ function dispatcher(message) {
     }
 };
 
+function strToMomentObj(target) {
+    return __.pipe(__.partial(__.val, target), moment, function(obj) {
+        return obj.locale("ko");
+    });
+}
 
 export default util;

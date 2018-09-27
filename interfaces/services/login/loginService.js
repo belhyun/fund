@@ -22,9 +22,9 @@ function logout() {
 function login(authObj) {
     const LOGIN_KEY = loginConstants.LOGIN_KEY;
     let requestToFundServer = userProfile => {
-        const mergedAuthAndUserProfile = Object.assign(authObj, userProfile);
+        const mergedAuthAndUserProfile = Object.assign(authObj, __.pick(__.val(userProfile, "userProfile"), ["profileImage", "thumbnailImage", "kakaoId", "nickName"]));
         const omitFromMergedAuthAndUserProfile = _.partial(_.omit, mergedAuthAndUserProfile);
-        http.post("/login", {}, omitFromMergedAuthAndUserProfile("userProfile"))
+        http.post("/login", {}, mergedAuthAndUserProfile)
             .then(http.handleResponse)
             .then(resp => {
                 return Promise.resolve(_.negate(_.isUndefined)(resp['respCode']) && _.isEqual(resp['respCode'], "LOGIN_SUCCESS") && resp);
