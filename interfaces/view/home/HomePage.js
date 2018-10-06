@@ -2,7 +2,7 @@ import React from 'react';
 import NavBarPage from './navbar/NavBarPage';
 import FundCardPage from './fundcard/FundCardPage';
 import FooterPage from './footer/FooterPage';
-import FundModal from '../modal/fundModal';
+import FundModal from '../modal/FundModal';
 import connect from "react-redux/es/connect/connect";
 import loginActions from '../../actions/login/loginActions';
 import ui from 'redux-ui';
