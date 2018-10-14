@@ -21,4 +21,10 @@ function close() {
     })
 }
 
+function ok(state) {
+    return util.dispatcher({
+        type: fundModalConstants.OK, fundModal: state
+    })
+}
+
 export default fundModalActions;

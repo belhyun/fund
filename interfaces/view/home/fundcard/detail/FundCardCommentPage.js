@@ -5,6 +5,8 @@ import util from '../../../../helpers/util';
 import ui from 'redux-ui';
 import FundModal from '../../../modal/FundModal';
 import fundModalActions from '../../../../actions/fundModal/fundModalActions';
+import fundCardServices from "../../../../services/fundCard/fundCardServices";
+import fundCardActions from "../../../../actions/fundCard/fundCardActions";
 
 @connect(state => ({
     fundCard: state.fundCard,
@@ -16,12 +18,37 @@ export default class FundCardCommentPage extends React.Component {
     constructor(props) {
         super(props);
         this.addComment = this.addComment.bind(this);
+        this.okCallback = this.okCallback.bind(this);
         this.state = {
             modal : true,
             title : '댓글남기기',
-            contents : '내용'
+            contents : '내용',
+            okCallback: this.okCallback
         }
     }
+
+    okCallback(commentValue) {
+
+        const _this = this;
+
+        if (_.isUndefined(this.props.authentication)) {
+            return;
+        }
+
+        fundCardServices.addComment(
+            this.props.fundCard.fundCard.fundCardId,
+            this.props.authentication.authObj.fundUserId,
+            commentValue)
+            .then(v => {
+                fundModalActions.close({
+                    modal: false
+                })(_this.props.dispatch);
+                fundCardActions.getFundCard(_this.props.fundCard.fundCard.fundCardId).then(func => {
+                    func(_this.props.dispatch);
+                });
+            });
+    }
+
 
     addComment() {
 
@@ -39,11 +66,8 @@ export default class FundCardCommentPage extends React.Component {
         return (
         <div>
             <FundModal></FundModal>
-                <div className="card">
-                    <div className="card-header">
-                        <h6 className="mb-0">댓글</h6>
-                    </div>
-                    <div className="card-body" style={{height: 233}}>
+                <div className="">
+                    <div className="card-body" style={{height: 233, padding:"0.25rem"}}>
                         <ul className="list-group">
                             {fundCard.commentDtos.map((comment) =>
                                 <li className="list-group-item" style={{marginBottom: 6}}>
@@ -66,7 +90,9 @@ export default class FundCardCommentPage extends React.Component {
                                 </li>
                             )}
                         </ul>
-                        <button className="btn btn-primary" type="button" style={{}} onClick={this.addComment}>댓글 남기기</button>
+                        <div>
+                            <button className="btn btn-primary btn-lg" type="button" style={{marginTop:"20px"}} onClick={this.addComment}>댓글 남기기</button>
+                        </div>
                     </div>
                 </div>
             </div>

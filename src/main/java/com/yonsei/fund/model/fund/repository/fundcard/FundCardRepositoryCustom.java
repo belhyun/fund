@@ -9,6 +9,6 @@ public interface FundCardRepositoryCustom {
 
     List<FundCard> getFundCardList(FundCardCondition condition);
 
-    FundCard getFundCard(FundCardCondition condition);
+    FundCard getFundCardById(FundCardCondition condition);
 
 }

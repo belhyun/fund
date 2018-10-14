@@ -4,7 +4,8 @@ import fundModalConstants from '../../constants/fundModalConstants';
 const initialState = {
     modal: false,
     title: "",
-    contents: ""
+    contents: "",
+    okCallback: function() {}
 };
 
 export function fundModal(state = initialState, action) {
@@ -15,6 +16,10 @@ export function fundModal(state = initialState, action) {
                 fundModal: action.fundModal
             }
         case fundModalConstants.CLOSE:
+            return {
+                fundModal: action.fundModal
+            }
+        case fundModalConstants.OK:
             return {
                 fundModal: action.fundModal
             }

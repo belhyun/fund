@@ -14,4 +14,8 @@ public class FundLoginDto {
     private String refreshToken;
 
     private Long refreshTokenExpiresIn;
+
+    private Long fundUserId;
+
+    private String kakaoId;
 }

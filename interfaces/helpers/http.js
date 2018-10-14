@@ -29,15 +29,13 @@ function request(func, baseUrl, headers, body) {
 }
 
 function post(baseUrl, headers, body) {
-    let localHeaders = {};
-    Object.assign(localHeaders, commonHeaders);
-    Object.assign(localHeaders, headers);
 
-    return axios
-         .create({
-             headers: localHeaders
-         })
-         .post(appConstants.API_SERVER[process.env.NODE_ENV].concat(baseUrl), body);
+    return request(
+        'post',
+        baseUrl,
+        _.isUndefined(headers) ? {} : headers,
+        _.isUndefined(body) ? {} : body);
+
 }
 
 function postToKakao(baseUrl, accToken) {

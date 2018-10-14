@@ -28,7 +28,7 @@ public class FundCardServiceImpl implements FundCardService {
     @Override
     public FundRestResponse<FundCardDetailDto> getFundCardDetail(FundCardCondition condition) {
 
-        return FundRestResponseFactory.getInstance().success(fundCardRepository.getFundCard(condition),
+        return FundRestResponseFactory.getInstance().success(fundCardRepository.getFundCardById(condition),
                 FundCardRestResponseCode.SUCCESS);
 
 

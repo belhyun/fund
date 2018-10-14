@@ -113,4 +113,13 @@ public class FundCard extends FundAbstractTimestampEntity implements FundRestDto
                 .title(title)
                 .build();
     }
+
+    public boolean hasAlreadyMadeComment(long fundCardId, long fundUserId) {
+
+        return fundCardComments.stream().
+                anyMatch(
+                        comment ->
+                                comment.getFundCard().getId().compareTo(fundCardId) == 0L && comment.getFundUser().getId().compareTo(fundUserId) == 0L);
+
+    }
 }

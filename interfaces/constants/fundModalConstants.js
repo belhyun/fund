@@ -1,7 +1,8 @@
 const fundModalConstants = {
 
     OPEN : "OPEN",
-    CLOSE : "CLOSE"
+    CLOSE : "CLOSE",
+    OK : "OK"
 };
 
 export default fundModalConstants;

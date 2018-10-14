@@ -15,6 +15,7 @@ class FundModal extends React.Component {
         super(props);
         this.ok = this.ok.bind(this);
         this.close = this.close.bind(this);
+        this.commentValue = "";
     }
 
     componentDidMount() {
@@ -35,6 +36,8 @@ class FundModal extends React.Component {
     }
 
     ok() {
+
+        this.props.fundModal.fundModal.okCallback(this.commentValue);
     }
 
     close() {
@@ -43,6 +46,10 @@ class FundModal extends React.Component {
             modal: false
         })(this.props.dispatch);
 
+    }
+
+    onChange(v) {
+        this.commentValue = v;
     }
 
     render() {
@@ -61,7 +68,7 @@ class FundModal extends React.Component {
                                     <InputGroupAddon addonType="prepend">
                                         <InputGroupText>댓글 </InputGroupText>
                                     </InputGroupAddon>
-                                    <Input className="text-align-left"></Input>
+                                    <Input  onChange={(e) => this.onChange(`${e.target.value}`)} className="text-align-left"></Input>
                                 </InputGroup>
                             </ModalBody>
                             <ModalFooter>

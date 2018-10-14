@@ -85,6 +85,8 @@ public class FundUser extends FundAbstractTimestampEntity implements FundRestDto
                 .accessToken(fundUserAuth.getAccessToken())
                 .expiresIn(fundUserAuth.getExpiresIn())
                 .refreshToken(fundUserAuth.getRefreshToken())
+                .fundUserId(this.id)
+                .kakaoId(kakaoId)
                 .refreshTokenExpiresIn(fundUserAuth.getRefreshTokenExpiresIn()).build();
     }
 }

@@ -20,6 +20,8 @@ import FundCardCommentPage from "./FundCardCommentPage";
 @ui({
     persist: true
 })
+
+
 export default class FundCardDetailPage extends React.Component {
 
     constructor(props) {
@@ -41,7 +43,11 @@ export default class FundCardDetailPage extends React.Component {
     }
 
     componentDidMount(){
+    }
 
+    componentWillReceiveProps() {
+        console.log("+++++componentWillReceiveProps+++++");
+        console.log(this.props.authentication);
     }
 
     getFundCardForUI(fundCard) {

@@ -8,16 +8,16 @@ const loginActions = {
     preLogin
 };
 
-function preLogin(authObj) {
+function preLogin() {
     const res = loginServices.preLogin();
     if (res.loggingIn) {
-        let authObj = _.pick(res, 'authObj');
+        let authObj = res['authObj'];
         return util.dispatcher({
             type: loginConstants.LOGIN_SUCCESS, authObj
         });
     }
     return util.dispatcher({
-        type: loginConstants.LOGIN_NEEDED, authObj
+        type: loginConstants.LOGIN_NEEDED
     });
 }
 
@@ -40,6 +40,9 @@ function login(authObj) {
             type: loginConstants.LOGIN_SUCCESS, authObj: authObj
         }
     };
+    /**
+     * 에러처리 필요함
+     */
     return dispatch => {
         dispatch(request({
             authObj
@@ -49,9 +52,11 @@ function login(authObj) {
                 userInfo => {
                     dispatch(success(authObj));
                     return userInfo;
-                },
-                error => {}
+                }
             )
+            .catch(error => {
+                console.log(error);
+            });
     };
 }
 

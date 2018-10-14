@@ -21,7 +21,25 @@ const fundCardServices = {
     getFundCard: function(id) {
         return extractBody("/card-detail/" + id);
     },
-    getFundCardForUI : getFundCardForUI
+    getFundCardForUI : getFundCardForUI,
+    addComment: addComment
+
+}
+
+function addComment() {
+    const args = Array.prototype.slice.call(arguments, 0);
+
+    return http.post("/add/comment", undefined, {
+            fundCardId: args[0],
+            fundUserId: args[1],
+            contents: args[2]
+        })
+        .then(http.handleResponse)
+        .then(function(resp) {
+            return http.checkResponse(resp, "SUCCESS");
+        })
+        .then(__.v('body'))
+        .catch(log);
 
 }
 
